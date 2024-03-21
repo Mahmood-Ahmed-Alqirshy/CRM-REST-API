@@ -1,0 +1,43 @@
+models:
+    Interest:
+        id: id
+        name: string
+        relationships:
+            belongsToMany: Deal, Contact
+
+    Location:
+        id: id
+        name: string
+        relationships:
+            hasMany: Contact
+
+    Tag:
+        id: id
+        name: string:255
+        relationships:
+            belongsToMany: Deal
+
+    Deal:
+        id: id
+        heading: text
+        description: text
+        datetime: dateTime
+        annual: boolean
+        image: text
+        relationships:
+            belongsToMany: Interest, Tag
+
+    Contact:
+        id: id
+        name: string
+        phone: string:45
+        facebook_id: unsignedInteger
+        instagram_id: string:30
+        email: string
+        location_id: unsignedInteger foreign:Location.id
+        birthday: date
+        relationships:
+            belongsToMany: Interest
+            belongsTo: Location
+
+

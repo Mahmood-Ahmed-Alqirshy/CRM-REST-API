@@ -1,0 +1,25 @@
+created:
+    - database/factories/InterestFactory.php
+    - database/factories/LocationFactory.php
+    - database/factories/TagFactory.php
+    - database/factories/DealFactory.php
+    - database/factories/ContactFactory.php
+    - database/migrations/2024_03_20_194307_create_interests_table.php
+    - database/migrations/2024_03_20_194308_create_locations_table.php
+    - database/migrations/2024_03_20_194309_create_tags_table.php
+    - database/migrations/2024_03_20_194310_create_deals_table.php
+    - database/migrations/2024_03_20_194311_create_contacts_table.php
+    - database/migrations/2024_03_20_194312_create_deal_interest_table.php
+    - database/migrations/2024_03_20_194313_create_contact_interest_table.php
+    - database/migrations/2024_03_20_194314_create_deal_tag_table.php
+    - app/Models/Interest.php
+    - app/Models/Location.php
+    - app/Models/Tag.php
+    - app/Models/Deal.php
+    - app/Models/Contact.php
+models:
+    Interest: { id: id, name: string, relationships: { belongsToMany: 'Deal, Contact' } }
+    Location: { id: id, name: string, relationships: { hasMany: Contact } }
+    Tag: { id: id, name: 'string:255', relationships: { belongsToMany: Deal } }
+    Deal: { id: id, heading: text, description: text, datetime: dateTime, annual: boolean, image: text, relationships: { belongsToMany: 'Interest, Tag' } }
+    Contact: { id: id, name: string, phone: 'string:45', facebook_id: unsignedInteger, instagram_id: 'string:30', email: string, location_id: 'unsignedInteger foreign:Location.id', birthday: date, relationships: { belongsToMany: Interest, belongsTo: Location } }
