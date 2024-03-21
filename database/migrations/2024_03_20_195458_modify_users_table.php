@@ -17,6 +17,7 @@ return new class extends Migration
             $table->dropColumn('email_verified_at');
             $table->dropColumn('remember_token');
             $table->renameColumn('name', 'username');
+            $table->unique('username');
         });
         
         Schema::drop('sessions');
@@ -31,11 +32,10 @@ return new class extends Migration
     {
 
         Schema::table('users', function (Blueprint $table) {
-            // WARNING: giving the unique constraint back to the email 
-            // will cause Duplicate entry for empty value ''.
-            $table->string('email'); //->unique('users_email_unique');
+            $table->string('email')->nullable()->unique('users_email_unique');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
+            $table->dropIndex('users_username_unique');
             $table->renameColumn('username', 'name');
         });
 
