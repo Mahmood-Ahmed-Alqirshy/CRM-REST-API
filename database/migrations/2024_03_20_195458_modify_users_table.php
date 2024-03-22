@@ -19,8 +19,6 @@ return new class extends Migration
             $table->renameColumn('name', 'username');
             $table->unique('username');
         });
-        
-        Schema::drop('sessions');
 
         Schema::drop('password_reset_tokens');
     }
@@ -37,15 +35,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->dropIndex('users_username_unique');
             $table->renameColumn('username', 'name');
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
