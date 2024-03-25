@@ -5,7 +5,6 @@ use App\Models\User;
 
 it('can login', function () {
    User::factory()->create(['username' => 'Mahmoud']);
-
    $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
 
    $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
@@ -17,8 +16,6 @@ it('can login', function () {
 });
 
 it('rejects wrong credentials', function ($username, $password) {
-   User::factory()->create(['username' => 'Mahmoud']);
-
    $credentials = ['username' => $username, 'password' => $password];
 
    $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
@@ -32,7 +29,6 @@ it('rejects wrong credentials', function ($username, $password) {
 
 it('can logout', function () {
    User::factory()->create(['username' => 'Mahmoud']);
-
    $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
 
    $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
@@ -49,4 +45,22 @@ it('can logout', function () {
 it("can't logout without token", function () {
    $response = $this->post('/api/logout', [], ['Accept' => 'application/json']);
    $response->assertStatus(401);
+});
+
+it('protect contact endpoints', function() {
+   $response = $this->get('/api/contacts', ['Accept' => 'application/json']);
+   $response->assertStatus(401);
+
+   $response = $this->get('/api/contacts/1', ['Accept' => 'application/json']);
+   $response->assertStatus(401);
+
+   $response = $this->deleteJson('/api/contacts/1', [], ['Accept' => 'application/json']);
+   $response->assertStatus(401);
+
+   $response = $this->postJson('/api/contacts', [] , ['Accept' => 'application/json']);
+   $response->assertStatus(401);
+
+   $response = $this->putJson('/api/contacts/1' , [] , ['Accept' => 'application/json']);
+   $response->assertStatus(401);
+
 });

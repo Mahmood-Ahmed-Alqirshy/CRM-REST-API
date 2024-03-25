@@ -21,7 +21,7 @@ class AuthenticationController extends Controller
             $token = $user->createToken($request->username);
             return ['token' => $token->plainTextToken];
         } else {
-            return response()->json([$user, $request->username, $request->password], 401);
+            return response()->json(['massage' => 'wrong password or username'], 401);
         }
     }
 
@@ -31,3 +31,5 @@ class AuthenticationController extends Controller
         return response()->json(['message' => 'loged out'], 200);
     }
 }
+
+

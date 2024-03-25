@@ -11,6 +11,8 @@ class Contact extends Model
 {
     use HasFactory;
 
+    // protected $appends = ['interests'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,12 +37,18 @@ class Contact extends Model
         'id' => 'integer',
         'facebook_id' => 'integer',
         'location_id' => 'integer',
-        'birthday' => 'date',
+        'birthday' => 'date:Y-m-d',
     ];
 
     public function interests(): BelongsToMany
     {
         return $this->belongsToMany(Interest::class);
+    }
+
+
+    public function getInterestsAttribute()
+    {
+        return $this->interests()->pluck('id')->toArray();
     }
 
     public function location(): BelongsTo

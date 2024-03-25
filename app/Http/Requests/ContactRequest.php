@@ -14,13 +14,13 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|alpha|max:255',
-            'phone' => 'nullable|numeric|max:9|unique:contacts',
+            'name' => 'required|string|regex:/^[\p{L}\p{M}\s]+$/u|max:255',
+            'phone' => 'nullable|string|regex:/^[\d]+$/|min:9|max:9|unique:contacts',
             'facebook_id' => 'nullable|integer|unique:contacts',
             'instagram_id' => 'nullable|string|max:30|unique:contacts',
             'email' => 'nullable|string|email|max:255|unique:contacts',
             'location_id' => 'required|integer|exists:locations,id',
-            'birthday' => 'required|date_format:Y-m-d',
+            'birthday' => 'required|date',
             'interests' => 'required|array',
             'interests.*' => 'required|integer|exists:interests,id'
         ];

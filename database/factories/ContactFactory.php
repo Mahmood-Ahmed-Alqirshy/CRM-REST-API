@@ -24,10 +24,10 @@ class ContactFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'phone' => $this->faker->phoneNumber(),
-            'facebook_id' => $this->faker->randomNumber(),
-            'instagram_id' => $this->faker->regexify('[A-Za-z0-9]{30}'),
-            'email' => $this->faker->safeEmail(),
+            'phone' => null,
+            'facebook_id' => null,
+            'instagram_id' => null,
+            'email' => null,
             'location_id' => Location::factory()->create(),
             'birthday' => $this->faker->dateTimeBetween(now()->subDecade(3),now()->subDecade(1)),
         ];
