@@ -19,7 +19,7 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interests' => Interest::take(3)->pluck('id')->toArray()
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
                 'invalidFields' => ['name']
             ],
@@ -32,7 +32,7 @@ class ContactDatasets
                     'email' => Contact::first()->email,
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interests' => Interest::take(3)->pluck('id')->toArray()
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
                 'invalidFields' => ['facebook_id','instagram_id','email','phone']
             ],
@@ -45,9 +45,9 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interests' => 1
+                    'interest_ids' => 1
                 ],
-                'invalidFields' => ['phone', 'interests']
+                'invalidFields' => ['phone', 'interest_ids']
             ],
             [
                 'data' => [
@@ -58,9 +58,9 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => 'ttt',
                     'birthday' => '2055 2 1',
-                    'interests' => 'ggg'
+                    'interest_ids' => 'ggg'
                 ],
-                'invalidFields' => ['phone', 'birthday', 'interests','location_id']
+                'invalidFields' => ['phone', 'birthday', 'interest_ids','location_id']
             ],
             [
                 'data' => [
@@ -71,7 +71,7 @@ class ContactDatasets
                     'email' => 'mahmoudahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interests' => Interest::take(3)->pluck('id')->toArray()
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
                 'invalidFields' => ['facebook_id','instagram_id','email']
             ],
@@ -84,9 +84,9 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => 1000,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interests' => [1000, 2000, Interest::first()->id],
+                    'interest_ids' => [1000, 2000, Interest::first()->id],
                 ],
-                'invalidFields' => ['location_id', 'interests.0', 'interests.1']
+                'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1']
             ],
         ];
     }

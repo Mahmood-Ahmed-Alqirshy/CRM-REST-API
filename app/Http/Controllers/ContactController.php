@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 
@@ -11,22 +12,9 @@ class ContactController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $request->validate(['page' => 'sometimes|numeric']);
-
-        $page = ((int)$request->page) ?? 1;
-        $totalPages = ceil(Contact::count() / 15);
-        $data = Contact::skip(($page - 1) * 15)->take(15)->get();
-        
-        $response = [
-            'data' => $data,
-            'total' => $data->count(),
-            'page' => $page,
-            'total_pages' => $totalPages
-        ];
-
-        return response()->json($response, 200); 
+        return ContactResource::collection(Contact::with('location')->paginate(15));
     }
 
     /**
@@ -34,13 +22,13 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        $validated = $request->safe()->except(['interests']);
-        $interests = $request->safe()->only(['interests'])['interests'];
+        $validated = $request->safe()->except(['interest_ids']);
+        $interests = $request->safe()->only(['interest_ids'])['interest_ids'];
 
         $contact = Contact::create($validated);
-
         $contact->interests()->sync($interests);
-        return response()->json(['massage' => 'OK', 200]);
+
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
     }
 
     /**
@@ -48,12 +36,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {   
-        if($contact) {
-            $contact->append('interests');
-            return response()->json($contact); 
-        }
-        else
-            return response()->json(['massage' => 'not found'], 404); 
+        return new ContactResource($contact->load('interests'));
     }
 
     /**
@@ -61,12 +44,13 @@ class ContactController extends Controller
      */
     public function update(ContactRequest $request, Contact $contact)
     {
-        $validated = $request->safe()->except(['interests']);
-        $interests = $request->safe()->only(['interests'])['interests'];
+        $validated = $request->safe()->except(['interest_ids']);
+        $interests = $request->safe()->only(['interest_ids'])['interest_ids'];
 
         $contact->update($validated);
         $contact->interests()->sync($interests);
-        return response()->json(['massage' => 'OK', 200]);
+
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
 
     }
 
@@ -75,14 +59,8 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        if($contact) {
-            $contact->delete();
-            return response()->json(['massage' => 'OK', 200]);
-        }
-
-        else {
-            return response()->json(['massage' => 'OK', 200])   ;
-        }
-
+        $contact->delete();
+        
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
     }
 }

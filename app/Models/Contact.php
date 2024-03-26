@@ -40,13 +40,14 @@ class Contact extends Model
         'birthday' => 'date:Y-m-d',
     ];
 
+    protected $hidden = ['updated_at', 'created_at'];
+
     public function interests(): BelongsToMany
     {
         return $this->belongsToMany(Interest::class);
     }
 
-
-    public function getInterestsAttribute()
+    public function getInterestIdsAttribute()
     {
         return $this->interests()->pluck('id')->toArray();
     }

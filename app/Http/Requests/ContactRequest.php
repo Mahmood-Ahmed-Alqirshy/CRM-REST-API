@@ -21,8 +21,8 @@ class ContactRequest extends FormRequest
             'email' => 'nullable|string|email|max:255|unique:contacts',
             'location_id' => 'required|integer|exists:locations,id',
             'birthday' => 'required|date',
-            'interests' => 'required|array',
-            'interests.*' => 'required|integer|exists:interests,id'
+            'interest_ids' => 'required|array',
+            'interest_ids.*' => 'required|integer|exists:interests,id'
         ];
     }
 }

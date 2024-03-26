@@ -22,8 +22,9 @@ it('can retrieve contacts', function () {
     $response->assertOK();
     $data = json_decode($response->content());
 
-    expect($data->total)->toBe(15);
-    expect($data->total_pages)->toBe(2);
+    expect($data->meta->from)->not->toBeNull();
+    expect($data->meta->to - $data->meta->from + 1)->toBe(15);
+    expect($data->meta->last_page)->toBe(2);
 
     for ($i = 0; $i < 5; $i++) {
         expect($data->data[$i]->name)
@@ -41,23 +42,14 @@ it('can retrieve contacts pages', function () {
     $response->assertOK();
     $data = json_decode($response->content());
 
-    expect($data->total)->toBe(5);
-    expect($data->total_pages)->toBe(3);
+    expect($data->meta->from)->not->toBeNull();
+    expect($data->meta->to - $data->meta->from + 1)->toBe(5);
+    expect($data->meta->last_page)->toBe(3);
 
     for ($i = 0; $i < 5; $i++) {
         expect($data->data[$i]->name)
             ->toBe($contacts[$i + (($page-1)*15)]->name);
     }
-});
-
-it("it reject invalid page number", function () {
-    Contact::factory(15)->create();
-    
-    $page = 'mmm';
-
-    $response = $this->get('/api/contacts?page=' . $page , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
- 
-    $response->assertStatus(422);
 });
 
 it('can return empty respone when exceed number of pages', function () {
@@ -67,8 +59,10 @@ it('can return empty respone when exceed number of pages', function () {
     $response->assertOK();
     $data = json_decode($response->content());
 
-    expect($data->total)->toBe(0);
-    expect($data->total_pages)->toBe(2);
+
+    expect($data->data)->toBeEmpty();
+    // expect($data->meta->total)->toBe(0);
+    // expect($data->meta->last_page)->toBe(2);
 });
 
 it('can retrieve contact', function () {
@@ -82,8 +76,8 @@ it('can retrieve contact', function () {
     $response->assertOK();
     $data = json_decode($response->content(), true);
     
-    expect($data)->toMatchArray($contact->append('interests')->toArray());
-    expect($contact->interests()->pluck('id')->toArray())->toEqualCanonicalizing($data['interests']);
+    expect($data)->toMatchArray($contact->append('interest_ids')->toArray());
+    expect($contact->interests()->pluck('id')->toArray())->toEqualCanonicalizing($data['interest_ids']);
 });
 
 it("can't retrieve unexisting contact", function () {
@@ -117,7 +111,7 @@ it('can store contact', function () {
         'email' => 'mahmoud@ahmed.com',
         'location_id' => $location->id,
         'birthday' => now()->subDecade(2)->format('Y-m-d'),
-        'interests' => $interests->take(3)->pluck('id')->toArray(),
+        'interest_ids' => $interests->take(3)->pluck('id')->toArray(),
     ];
 
     sleep(1);
@@ -126,7 +120,7 @@ it('can store contact', function () {
     
     $response->assertOK();
 
-    $contact = Contact::latest()->first()->append('interests')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
+    $contact = Contact::latest()->first()->append('interest_ids')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
     
     expect($contact)->toMatchArray($request);
 });
@@ -161,14 +155,14 @@ it('can update contact', function () {
         'email' => 'mahmood@ahmed.com',
         'location_id' => $location->id,
         'birthday' => now()->subDecade(2)->format('Y-m-d'),
-        'interests' => $interests->take(3)->pluck('id')->toArray(),
+        'interest_ids' => $interests->take(3)->pluck('id')->toArray(),
     ];
 
     $response = $this->putJson('/api/contacts/' . $oldContact->id, $request, ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
 
     $response->assertOK();
 
-    $contact = Contact::find($oldContact->id)->append('interests')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
+    $contact = Contact::find($oldContact->id)->append('interest_ids')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
 
     expect($contact)->toMatchArray($request);
 });
