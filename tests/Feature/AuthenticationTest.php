@@ -1,25 +1,24 @@
 <?php
 
 use App\Models\User;
+use phpDocumentor\Reflection\Types\This;
 
+beforeEach(function() {
+   $this->makeToken();
+});
 
 it('can login', function () {
-   User::factory()->create(['username' => 'Mahmoud']);
-   $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
-
-   $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
-   $data = $response->json();
-   $token = $data['token'];
-
-   $response->assertOK();
-   $response->assertJsonStructure(['token']);
+   $this->postJson('/api/login', $this->credentials)
+      ->assertOK()
+      ->assertJsonStructure(['token']);
 });
 
 it('rejects wrong credentials', function ($username, $password) {
-   $credentials = ['username' => $username, 'password' => $password];
+   $invalidCredentials = ['username' => $username, 'password' => $password];
 
-   $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+   $this->postJson('/api/login', $invalidCredentials)
+      ->assertUnauthorized();
+
 })->with([
    ['Ahmed', 'password'],
    ['Mahmoud', '1234'],
@@ -28,39 +27,28 @@ it('rejects wrong credentials', function ($username, $password) {
 
 
 it('can logout', function () {
-   User::factory()->create(['username' => 'Mahmoud']);
-   $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
-
-   $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
-   $data = $response->json();
-
-   $response->assertOK();
-   $response->assertJsonStructure(['token']);
-   
-   $response = $this->post('/api/logout', [], ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $data['token']]);
-   
-   $response->assertOK();
+   $this->postJson('/api/logout', [], ['Authorization' => "Bearer $this->token"])
+      ->assertOK();
 });
 
 it("can't logout without token", function () {
-   $response = $this->post('/api/logout', [], ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+   $this->postJson('/api/logout')
+      ->assertUnauthorized();
 });
 
-it('protect contact endpoints', function() {
-   $response = $this->get('/api/contacts', ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+it('protect contact endpoints', function () {
+   $this->getJson('/api/contacts')
+      ->assertUnauthorized();
 
-   $response = $this->get('/api/contacts/1', ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+   $this->getJson('/api/contacts/1')
+      ->assertUnauthorized();
 
-   $response = $this->deleteJson('/api/contacts/1', [], ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+   $this->deleteJson('/api/contacts/1')
+      ->assertUnauthorized();
 
-   $response = $this->postJson('/api/contacts', [] , ['Accept' => 'application/json']);
-   $response->assertStatus(401);
+   $this->postJson('/api/contacts')
+      ->assertUnauthorized();
 
-   $response = $this->putJson('/api/contacts/1' , [] , ['Accept' => 'application/json']);
-   $response->assertStatus(401);
-
+   $this->putJson('/api/contacts/1')
+      ->assertUnauthorized();
 });

@@ -28,7 +28,7 @@ class ContactController extends Controller
         $contact = Contact::create($validated);
         $contact->interests()->sync($interests);
 
-        return response()->json(['massage' => 'The request has succeeded.', 200]);
+        return response()->json(['massage' => 'The request has succeeded.'], 201);
     }
 
     /**

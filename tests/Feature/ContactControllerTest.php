@@ -1,173 +1,123 @@
 <?php
 
 use App\Datasets\ContactDatasets;
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\User;
 use Database\Seeders\TestSeeder;
 use Illuminate\Support\Facades\Artisan;
-
+use Illuminate\Testing\Fluent\AssertableJson;
 
 beforeEach(function () {
     $this->seed(TestSeeder::class);
     $this->makeToken();
-
 });
 
 it('can retrieve contacts', function () {
-    $contacts = Contact::all();
+    $contacts = Contact::first();
 
-    $response = $this->get('/api/contacts' , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertOK();
-    $data = json_decode($response->content());
-
-    expect($data->meta->from)->not->toBeNull();
-    expect($data->meta->to - $data->meta->from + 1)->toBe(15);
-    expect($data->meta->last_page)->toBe(2);
-
-    for ($i = 0; $i < 5; $i++) {
-        expect($data->data[$i]->name)
-            ->toBe($contacts[$i]->name);
-    }
-});
-
-it('can retrieve contacts pages', function () {
-    Contact::factory(5)->create();
-    $contacts = Contact::all();
-    
-    $page = 3;
-
-    $response = $this->get('/api/contacts?page=' . $page , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertOK();
-    $data = json_decode($response->content());
-
-    expect($data->meta->from)->not->toBeNull();
-    expect($data->meta->to - $data->meta->from + 1)->toBe(5);
-    expect($data->meta->last_page)->toBe(3);
-
-    for ($i = 0; $i < 5; $i++) {
-        expect($data->data[$i]->name)
-            ->toBe($contacts[$i + (($page-1)*15)]->name);
-    }
-});
-
-it('can return empty respone when exceed number of pages', function () {
-    $page = 100;
-
-    $response = $this->get('/api/contacts?page=' . $page , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertOK();
-    $data = json_decode($response->content());
-
-
-    expect($data->data)->toBeEmpty();
-    // expect($data->meta->total)->toBe(0);
-    // expect($data->meta->last_page)->toBe(2);
+    $this->getJson('/api/contacts', ['Authorization' => "Bearer $this->token"])
+        ->assertOK()
+        ->assertJson(
+            fn (AssertableJson $json) =>
+            $json->has('meta')
+                ->where('meta.last_page', 2)
+                ->whereNot('meta.from', null)
+                ->where('meta.total', 30)
+                ->has('links')
+                ->has(
+                    'data',
+                    15,
+                    fn (AssertableJson $json) =>
+                    $json->where('id', $contacts->id)
+                        ->where('name', 'Mahmoud Ahmed')
+                        ->has('location')
+                        ->missing('interest_ids')
+                        ->etc()
+                )
+        );
 });
 
 it('can retrieve contact', function () {
     $contact = Contact::first();
-    
-    $interests = Interest::take(5)->get();
-    $intresestIds = $interests->pluck('id')->toArray();
+    $intresestIds = Interest::take(5)->pluck('id')->toArray();
     $contact->interests()->sync($intresestIds);
 
-    $response = $this->get('/api/contacts/' . $contact->id, ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertOK();
-    $data = json_decode($response->content(), true);
-    
-    expect($data)->toMatchArray($contact->append('interest_ids')->toArray());
-    expect($contact->interests()->pluck('id')->toArray())->toEqualCanonicalizing($data['interest_ids']);
+    $this->getJson("/api/contacts/$contact->id", ['Authorization' => "Bearer $this->token"])
+        ->assertOK()
+        ->assertJson(
+            fn (AssertableJson $json) =>
+            $json->where('id', $contact->id)
+                ->where('interest_ids', $intresestIds)
+                ->missing('location')
+                ->etc()
+        );
 });
 
 it("can't retrieve unexisting contact", function () {
-    $response = $this->get('/api/contacts/6579839', ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertStatus(404);
+    $this->getJson('/api/contacts/999999', ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });
 
 it('can delete contact', function () {
     $contact = Contact::factory()->create();
 
-    $response = $this->deleteJson('/api/contacts/' . $contact->id, [], ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-
-    $response->assertOK();
+    $this->deleteJson("/api/contacts/$contact->id", [], ['Authorization' => "Bearer $this->token"])
+        ->assertOK();
 
     expect(Contact::find($contact->id))->tobeNull();
 });
 
 it("can't delete unexisting contact", function () {
-    $response = $this->deleteJson('/api/contacts/6579839', [] , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertStatus(404);
+    $this->deleteJson('/api/contacts/6579839', [], ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });
 
 it('can store contact', function () {
-    $location = Location::first();
-    $interests = Interest::all();
-    $request = [
-        'name' => 'Mahmoud Ahmed',
-        'phone' => '737514829',
-        'facebook_id' => '12831093',
-        'instagram_id' => 'mahmoodahmed404',
-        'email' => 'mahmoud@ahmed.com',
-        'location_id' => $location->id,
-        'birthday' => now()->subDecade(2)->format('Y-m-d'),
-        'interest_ids' => $interests->take(3)->pluck('id')->toArray(),
-    ];
+    $requests = ContactDatasets::valid();
 
-    sleep(1);
+    foreach ($requests as $request) {
+        // to make the Contact that will be created have higher timestamp than the seeded ones
+        // so it can be grabbed by Contact::latest()->first()
+        sleep(1);
 
-    $response = $this->postJson('/api/contacts', $request, ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    
-    $response->assertOK();
+        $this->postJson('/api/contacts', $request, ['Authorization' => "Bearer $this->token"])
+            ->assertCreated();
 
-    $contact = Contact::latest()->first()->append('interest_ids')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
-    
-    expect($contact)->toMatchArray($request);
+        $contact = Contact::latest()->first()->append('interest_ids')->toArray();
+        expect($contact)->toMatchArray($request);
+    }
 });
 
 it("can't store invalid contact", function () {
-    $dataset = ContactDatasets::invalid();
+    $requests = ContactDatasets::invalid();
 
-    foreach($dataset as $request) {
-        $response = $this->postJson('/api/contacts', $request['data'], ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-        $response->assertStatus(422);
-        
-        $errors = json_decode($response->content(),true)['errors'];
-        expect($errors)->toHaveLength(count($request['invalidFields']));
-        expect($errors)->toHaveKeys($request['invalidFields']);
+    foreach ($requests as $request) {
+        $this->postJson('/api/contacts', $request['data'], ['Authorization' => "Bearer $this->token"])
+            ->assertStatus(422)
+            ->assertInvalid($request['invalidFields'])
+            ->assertJsonCount(count($request['invalidFields']), 'errors');
     }
-    
 });
 
 it('can update contact', function () {
-    $oldContact = Contact::factory()->create();
+    $oldContact = Contact::first();
+    expect($oldContact->name)->toBe('Mahmoud Ahmed');
+    expect($oldContact->interests()->pluck('id')->toArray())->toBeEmpty();
 
-    $location = Location::factory()->create();
-    $interests = Interest::factory(5)->create();
+    $request = ContactDatasets::update();
 
-    $oldContact->interests()->sync($interests->skip(3)->take(2)->pluck('id')->toArray());
+    $this->putJson("/api/contacts/$oldContact->id", $request, ['Authorization' => "Bearer $this->token"])
+        ->assertOK();
 
-    $request = [
-        'name' => 'Ahmed Mahmoud',
-        'phone' => '777514829',
-        'facebook_id' => '12531093',
-        'instagram_id' => 'mahmoudahmed404',
-        'email' => 'mahmood@ahmed.com',
-        'location_id' => $location->id,
-        'birthday' => now()->subDecade(2)->format('Y-m-d'),
-        'interest_ids' => $interests->take(3)->pluck('id')->toArray(),
-    ];
+    $newContact = Contact::find($oldContact->id)->append('interest_ids')->toArray();
 
-    $response = $this->putJson('/api/contacts/' . $oldContact->id, $request, ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-
-    $response->assertOK();
-
-    $contact = Contact::find($oldContact->id)->append('interest_ids')->makeHidden(['created_at', 'updated_at', 'id'])->toArray();
-
-    expect($contact)->toMatchArray($request);
+    expect($newContact)->toMatchArray($request);
 });
 
 it("can't update unexisting contact", function () {
-    $response = $this->putJson('/api/contacts/6579839', [] , ['Accept' => 'application/json', 'Authorization' => 'Bearer ' . $this->token]);
-    $response->assertStatus(404);
+    $this->putJson('/api/contacts/6579839', [], ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });

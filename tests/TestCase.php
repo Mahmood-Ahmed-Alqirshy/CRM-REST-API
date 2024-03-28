@@ -17,11 +17,13 @@ use phpDocumentor\Reflection\Types\This;
 abstract class TestCase extends BaseTestCase
 {
     public function makeToken() {
-        $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
+        User::factory()->create(['username' => 'Mahmoud']);
 
-        $response = $this->postJson('/api/login', $credentials, ['Accept' => 'application/json']);
+        $response = $this->postJson('/api/login', $this->credentials, ['Accept' => 'application/json']);
         $this->token = $response->json()['token'];
     }
 
-    public $token;
+    public $token = '';
+
+    public $credentials = ['username' => 'Mahmoud', 'password' => 'password'];
 }

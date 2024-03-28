@@ -8,6 +8,34 @@ use App\Models\Location;
 
 class ContactDatasets
 {
+    public static function update() {
+        return [
+            'name' => 'Ahmed Mahmoud',
+            'phone' => '777514829',
+            'facebook_id' => '12531093',
+            'instagram_id' => 'mahmoudahmed404',
+            'email' => 'mahmood@ahmed.com',
+            'location_id' => Location::first()->id,
+            'birthday' => now()->subDecade(2)->format('Y-m-d'),
+            'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
+        ];
+    }
+
+    public static function valid() {
+        return [
+            [
+                'name' => 'Mahmoud Ahmed',
+                'phone' => '737514829',
+                'facebook_id' => '12831093',
+                'instagram_id' => 'mahmoodahmed404',
+                'email' => 'mahmoud@ahmed.com',
+                'location_id' => Location::first()->id,
+                'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
+            ],
+        ];
+    }
+
     public static function invalid() {
         return [
             [
@@ -34,7 +62,7 @@ class ContactDatasets
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
-                'invalidFields' => ['facebook_id','instagram_id','email','phone']
+                'invalidFields' => ['facebook_id','instagram_id','email', 'phone']
             ],
             [
                 'data' => [

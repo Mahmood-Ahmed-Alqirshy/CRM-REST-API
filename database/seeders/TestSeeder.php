@@ -18,12 +18,12 @@ class TestSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create(['username' => 'Mahmoud']);
         Tag::factory(5)->create();
         Location::factory(5)->create();
         Interest::factory(5)->create();
         Deal::factory(5)->create();
         Contact::factory()->create([
+            'name' => 'Mahmoud Ahmed',
             'phone' => '123456789',
             'facebook_id' => '1231',
             'instagram_id' => 'gffhjdh3',
