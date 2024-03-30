@@ -32,4 +32,17 @@ class Tag extends Model
     {
         return $this->belongsToMany(Deal::class);
     }
+
+    public static function seeds() {
+        return [
+            ['name' => 'رمضانيات'],
+            ['name' => 'شعبي'],
+            ['name' => 'حلويات'],
+            ['name' => 'دسم'],
+            ['name' => 'رز'],
+            ['name' => 'بيتزا'],
+            ['name' => 'جديد'],
+            ['name' => 'حق مزوجين'],
+        ];
+    }
 }
