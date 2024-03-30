@@ -35,20 +35,3 @@ it("can't logout without token", function () {
    $this->postJson('/api/logout')
       ->assertUnauthorized();
 });
-
-it('protect contact endpoints', function () {
-   $this->getJson('/api/contacts')
-      ->assertUnauthorized();
-
-   $this->getJson('/api/contacts/1')
-      ->assertUnauthorized();
-
-   $this->deleteJson('/api/contacts/1')
-      ->assertUnauthorized();
-
-   $this->postJson('/api/contacts')
-      ->assertUnauthorized();
-
-   $this->putJson('/api/contacts/1')
-      ->assertUnauthorized();
-});

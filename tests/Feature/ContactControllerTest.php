@@ -1,13 +1,9 @@
 <?php
 
 use App\Datasets\ContactDatasets;
-use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Interest;
-use App\Models\Location;
-use App\Models\User;
 use Database\Seeders\TestSeeder;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 beforeEach(function () {
@@ -121,3 +117,20 @@ it("can't update unexisting contact", function () {
     $this->putJson('/api/contacts/6579839', [], ['Authorization' => "Bearer $this->token"])
         ->assertNotFound();
 });
+
+it('protect Contact endpoints', function () {
+    $this->getJson('/api/contacts')
+       ->assertUnauthorized();
+ 
+    $this->getJson('/api/contacts/1')
+       ->assertUnauthorized();
+ 
+    $this->deleteJson('/api/contacts/1')
+       ->assertUnauthorized();
+ 
+    $this->postJson('/api/contacts')
+       ->assertUnauthorized();
+ 
+    $this->putJson('/api/contacts/1')
+       ->assertUnauthorized();
+ });

@@ -30,17 +30,29 @@ class Deal extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'datetime' => 'datetime',
+        'datetime' => 'datetime:Y-m-d H:i:s',
         'annual' => 'boolean',
     ];
+
+    protected $hidden = ['updated_at', 'created_at'];
 
     public function interests(): BelongsToMany
     {
         return $this->belongsToMany(Interest::class);
     }
 
+    public function getInterestIdsAttribute()
+    {
+        return $this->interests()->pluck('id')->toArray();
+    }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function getTagIdsAttribute()
+    {
+        return $this->tags()->pluck('id')->toArray();
     }
 }

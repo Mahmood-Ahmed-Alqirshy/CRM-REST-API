@@ -20,7 +20,7 @@ class ContactRequest extends FormRequest
             'instagram_id' => 'nullable|string|max:30|unique:contacts',
             'email' => 'nullable|string|email|max:255|unique:contacts',
             'location_id' => 'required|integer|exists:locations,id',
-            'birthday' => 'required|date',
+            'birthday' => 'required|date|date_format:Y-m-d',
             'interest_ids' => 'required|array',
             'interest_ids.*' => 'required|integer|exists:interests,id'
         ];

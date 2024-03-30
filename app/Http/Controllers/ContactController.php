@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -51,7 +50,6 @@ class ContactController extends Controller
         $contact->interests()->sync($interests);
 
         return response()->json(['massage' => 'The request has succeeded.', 200]);
-
     }
 
     /**

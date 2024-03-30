@@ -46,10 +46,10 @@ class ContactDatasets
                     'instagram_id' => 'mahmoodahmed404',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                    'birthday' => now()->subDecade(2),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
-                'invalidFields' => ['name']
+                'invalidFields' => ['name', 'birthday']
             ],
             [
                 'data' => [
