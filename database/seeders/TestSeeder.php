@@ -19,9 +19,20 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         Tag::factory(5)->create();
+        
         Location::factory(5)->create();
+
         Interest::factory(5)->create();
-        Deal::factory(5)->create();
+
+        Deal::factory()->create([
+            'heading' => 'good pizza',
+            'description' => 'it is really good',
+            'datetime' => now()->addWeek(3),
+            'annual' => false,
+            'image' => 'pizza.png',
+        ]);
+        Deal::factory(29)->create();
+
         Contact::factory()->create([
             'name' => 'Mahmoud Ahmed',
             'phone' => '123456789',

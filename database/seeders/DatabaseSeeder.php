@@ -18,44 +18,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $locations = [
-            ['name' => 'المنصورة'],
-            ['name' => 'الشيخ عثمان'],
-            ['name' => 'دار سعد'],
-            ['name' => 'البريقة'],
-            ['name' => 'التواهي'],
-            ['name' => 'المعلا'],
-            ['name' => 'كريتر'],
-            ['name' => 'خور مكسر'],
-        ];
-
-        $interests = [
-            ['name' => 'عيد الميلاد'],
-            ['name' => 'عطلة نهاية الأسبوع'],
-            ['name' => 'عيد العمال'],
-            ['name' => 'عيد الفطر'],
-            ['name' => 'رمضان'],
-            ['name' => 'المأكولات البحرية'],
-        ];
-
-        $tags = [
-            ['name' => 'رمضانيات'],
-            ['name' => 'شعبي'],
-            ['name' => 'حلويات'],
-            ['name' => 'دسم'],
-            ['name' => 'رز'],
-            ['name' => 'بيتزا'],
-            ['name' => 'جديد'],
-            ['name' => 'حق مزوجين'],
-        ];
-
-        foreach($interests as $interest)
+        foreach(Interest::seeds() as $interest)
             Interest::factory()->create($interest);
 
-        foreach($tags as $tag)
+        foreach(Tag::seeds() as $tag)
             Tag::factory()->create($tag);
 
-        foreach($locations as $location)
+        foreach(Location::seeds() as $location)
             Location::factory()->create($location);
     }
 }

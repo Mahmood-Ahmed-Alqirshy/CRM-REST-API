@@ -32,4 +32,17 @@ class Location extends Model
     {
         return $this->hasMany(Contact::class);
     }
+
+    public static function seeds() {
+        return [
+            ['name' => 'المنصورة'],
+            ['name' => 'الشيخ عثمان'],
+            ['name' => 'دار سعد'],
+            ['name' => 'البريقة'],
+            ['name' => 'التواهي'],
+            ['name' => 'المعلا'],
+            ['name' => 'كريتر'],
+            ['name' => 'خور مكسر'],
+        ];
+    } 
 }

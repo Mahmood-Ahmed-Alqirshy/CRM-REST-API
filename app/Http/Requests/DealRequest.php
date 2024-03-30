@@ -17,13 +17,13 @@ class DealRequest extends FormRequest
         return [
             'heading' => 'required|string|max:255',
             'description' => 'required|string',
-            'datetime' => 'required|date_format:Y-m-d H:i:s',
+            'datetime' => 'required|date|date_format:Y-m-d H:i:s',
             'annual' => 'required|boolean',
             'image' => 'string',
-            'tags' => 'required|array',
-            'tags.*' => 'required|integer|exists:tags,id',
-            'interests' => 'required|array',
-            'interests.*' => 'required|integer|exists:interests,id'
+            'tag_ids' => 'required|array',
+            'tag_ids.*' => 'required|integer|exists:tags,id',
+            'interest_ids' => 'required|array',
+            'interest_ids.*' => 'required|integer|exists:interests,id'
         ];
     }
 }
