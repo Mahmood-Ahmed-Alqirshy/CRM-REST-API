@@ -95,7 +95,7 @@ it("can't store invalid deal", function () {
 
     foreach ($requests as $request) {
         $this->postJson('/api/deals', $request['data'], ['Authorization' => "Bearer $this->token"])
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertInvalid($request['invalidFields'])
             ->assertJsonCount(count($request['invalidFields']), 'errors');
     }

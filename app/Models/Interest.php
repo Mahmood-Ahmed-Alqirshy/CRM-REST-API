@@ -28,6 +28,8 @@ class Interest extends Model
         'id' => 'integer',
     ];
 
+    protected $hidden = ['updated_at', 'created_at'];
+
     public function deals(): BelongsToMany
     {
         return $this->belongsToMany(Deal::class);

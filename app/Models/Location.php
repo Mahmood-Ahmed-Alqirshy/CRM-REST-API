@@ -28,6 +28,8 @@ class Location extends Model
         'id' => 'integer',
     ];
 
+    protected $hidden = ['updated_at', 'created_at'];
+
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
