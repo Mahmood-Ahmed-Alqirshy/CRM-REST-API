@@ -92,7 +92,7 @@ it("can't store invalid contact", function () {
 
     foreach ($requests as $request) {
         $this->postJson('/api/contacts', $request['data'], ['Authorization' => "Bearer $this->token"])
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertInvalid($request['invalidFields'])
             ->assertJsonCount(count($request['invalidFields']), 'errors');
     }
