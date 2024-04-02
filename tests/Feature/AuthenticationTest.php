@@ -25,6 +25,16 @@ it('rejects wrong credentials', function ($username, $password) {
    ['Ahmed', '1234']
 ]);
 
+it('rejects incomplete credentials', function ($credentials) {
+
+   $this->postJson('/api/login', $credentials)
+      ->assertUnprocessable();
+
+})->with([
+   [['username' => 'Mahmoud']],
+   [['password' => 'password']],
+   [[]],
+]);
 
 it('can logout', function () {
    $this->postJson('/api/logout', [], ['Authorization' => "Bearer $this->token"])

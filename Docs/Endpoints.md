@@ -10,8 +10,8 @@
 
 | Field    | rules                      |
 | -------- | -------------------------- |
-| username | <ul><li>requierd</li></ul> |
-| password | <ul><li>requierd</li></ul> |
+| username | <ul><li>requierd</li><li>String</li></ul> |
+| password | <ul><li>requierd</li><li>String</li></ul> |
 
 ## `POST` - /api/logout
 
@@ -73,14 +73,14 @@ No payload requierd.
 
 | Field           | rules                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------------- |
-| name            | <ul><li>Requierd</li><li>Contain letters and white space only</li><li>max length is 255</li></ul> |
+| name            | <ul><li>Requierd</li><li>Contain letters and white space only</li><li>Max length is 255</li></ul> |
 | phone           | <ul><li>Contain numbers only</li><li>must have 9 digits</li><li>Must be unique</li></ul>          |
 | facebook_id     | <ul><li>Number</li><li>Must be unique</li></ul>                                                   |
-| instagram_id    | <ul><li>String</li><li>Must be unique</li><li>max length is 30</li></ul>                          |
-| email           | <ul><li>Email</li><li>Must be unique</li><li>max length is 255</li></ul>                          |
+| instagram_id    | <ul><li>String</li><li>Must be unique</li><li>Max length is 30</li></ul>                          |
+| email           | <ul><li>Email</li><li>Must be unique</li><li>Max length is 255</li></ul>                          |
 | location_id     | <ul><li>Requierd</li><li>Number</li><li>Exists in locations table</li></ul>                       |
 | birthday        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
-| interest_ids    | <ul><li>Requierd</li><li>Array</li></ul>                                                          |
+| interest_ids    | <ul><li>Array</li></ul>                                                          |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul>                       |
 
 ## `PUT` - /api/contacts/{id}
@@ -94,14 +94,14 @@ No payload requierd.
 
 | Field           | rules                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------------- |
-| name            | <ul><li>Requierd</li><li>Contain letters and white space only</li><li>max length is 255</li></ul> |
+| name            | <ul><li>Requierd</li><li>Contain letters and white space only</li><li>Max length is 255</li></ul> |
 | phone           | <ul><li>Contain numbers only</li><li>must have 9 digits</li><li>Must be unique</li></ul>          |
 | facebook_id     | <ul><li>Number</li><li>Must be unique</li></ul>                                                   |
-| instagram_id    | <ul><li>String</li><li>Must be unique</li><li>max length is 30</li></ul>                          |
-| email           | <ul><li>Email</li><li>Must be unique</li><li>max length is 255</li></ul>                          |
+| instagram_id    | <ul><li>String</li><li>Must be unique</li><li>Max length is 30</li></ul>                          |
+| email           | <ul><li>Email</li><li>Must be unique</li><li>Max length is 255</li></ul>                          |
 | location_id     | <ul><li>Requierd</li><li>Number</li><li>Exists in locations table</li></ul>                       |
 | birthday        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
-| interest_ids    | <ul><li>Requierd</li><li>Array</li></ul>                                                          |
+| interest_ids    | <ul><li>Array</li></ul>                                                          |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul>                       |
 
 ## `DELETE` - /api/contacts/{id}
@@ -160,14 +160,14 @@ No payload requierd.
 
 | Field           | rules                                                                       |
 | --------------- | --------------------------------------------------------------------------- |
-| heading         | <ul><li>Requierd</li><li>String</li><li>max length is 255</li></ul>         |
+| heading         | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li></ul>         |
 | description     | <ul><li>Requierd</li><li>String</li></ul>                                   |
 | datetime        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d H:i:s</li></ul>        |
 | annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                                  |
 | image           | <ul><li>String</li></ul>                                                    |
-| interest_ids    | <ul><li>Requierd</li><li>Array</li></ul>                                    |
+| interest_ids    | <ul><li>Array</li></ul>                                    |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul> |
-| tag_ids         | <ul><li>Requierd</li><li>Array</li></ul>                                    |
+| tag_ids         | <ul><li>Array</li></ul>                                    |
 | tag_ids.\*      | <ul><li>Number</li><li>Exists in tags table</li></ul>      |
 
 ## `PUT` - /api/deals/{id}
@@ -181,14 +181,14 @@ No payload requierd.
 
 | Field           | rules                                                                       |
 | --------------- | --------------------------------------------------------------------------- |
-| heading         | <ul><li>Requierd</li><li>String</li><li>max length is 255</li></ul>         |
+| heading         | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li></ul>         |
 | description     | <ul><li>Requierd</li><li>String</li></ul>                                   |
 | datetime        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d H:i:s</li></ul>        |
 | annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                                  |
 | image           | <ul><li>String</li></ul>                                                    |
-| interest_ids    | <ul><li>Requierd</li><li>Array</li></ul>                                    |
+| interest_ids    | <ul><li>Array</li></ul>                                    |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul> |
-| tag_ids         | <ul><li>Requierd</li><li>Array</li></ul>                                    |
+| tag_ids         | <ul><li>Array</li></ul>                                    |
 | tag_ids.\*      | <ul><li>Number</li><li>Exists in tags table</li></ul>      |
 
 ## `DELETE` - /api/deals/{id}
@@ -225,7 +225,7 @@ No payload requierd.
 
 | Field | rules                                                                                      |
 | ----- | ------------------------------------------------------------------------------------------ |
-| name  | <ul><li>Requierd</li><li>String</li><li>max length is 255</li><li>Must be unique</li></ul> |
+| name  | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li><li>Must be unique</li></ul> |
 
 ## `GET` - /api/tags
 
@@ -250,7 +250,7 @@ No payload requierd.
 
 | Field | rules                                                                                      |
 | ----- | ------------------------------------------------------------------------------------------ |
-| name  | <ul><li>Requierd</li><li>String</li><li>max length is 255</li><li>Must be unique</li></ul> |
+| name  | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li><li>Must be unique</li></ul> |
 
 ## `GET` - /api/locations
 
@@ -275,7 +275,7 @@ No payload requierd.
 
 | Field | rules                                                                                      |
 | ----- | ------------------------------------------------------------------------------------------ |
-| name  | <ul><li>Requierd</li><li>String</li><li>max length is 255</li><li>Must be unique</li></ul> |
+| name  | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li><li>Must be unique</li></ul> |
 
 [^1]: The data in the key `data` in laravel pagination. <br>
 [^2]: The data in the key `data` in a collaction.

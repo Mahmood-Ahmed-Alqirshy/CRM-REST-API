@@ -13,12 +13,16 @@ class AuthenticationController extends Controller
 {
     public function login(Request $request)
     {
+        $validated = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string'
+        ]);
         $user = User::all()
-            ->where('username', $request->username)
+            ->where('username', $validated['username'])
             ->first();
 
-        if ($user && Hash::check($request->password, $user->password)) {
-            $token = $user->createToken($request->username);
+        if ($user && Hash::check($validated['password'], $user->password)) {
+            $token = $user->createToken($validated['username']);
             return ['token' => $token->plainTextToken];
         } else {
             return response()->json(['massage' => 'wrong password or username'], 401);

@@ -45,8 +45,18 @@ class DealDatasets
                     'datetime' => 2,
                     'annual' => 'g',
                     'image' => 'pizza.png',
-                    'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
-                    'interest_ids' => Interest::take(3)->pluck('id')->toArray(),    
+                    'tag_ids' => [],
+                    'interest_ids' => [],    
+                ],
+                'invalidFields' => ['datetime', 'annual']
+            ],
+            [
+                'data' => [
+                    'heading' => 'good burger',
+                    'description' => 'i will be honest it is good',
+                    'datetime' => 2,
+                    'annual' => 'g',
+                    'image' => 'pizza.png',
                 ],
                 'invalidFields' => ['datetime', 'annual']
             ],

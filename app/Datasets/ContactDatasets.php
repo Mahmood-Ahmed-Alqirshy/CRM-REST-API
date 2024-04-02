@@ -47,7 +47,19 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2),
-                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
+                    'interest_ids' => []
+                ],
+                'invalidFields' => ['name', 'birthday']
+            ],
+            [
+                'data' => [
+                    'name' => 'Mahmoud1212hmed',
+                    'phone' => '737514829',
+                    'facebook_id' => '12831093',
+                    'instagram_id' => 'mahmoodahmed404',
+                    'email' => 'mahmoud@ahmed.com',
+                    'location_id' => Location::first()->id,
+                    'birthday' => now()->subDecade(2),
                 ],
                 'invalidFields' => ['name', 'birthday']
             ],
