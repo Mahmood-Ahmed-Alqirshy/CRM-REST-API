@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -17,8 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone', 45)->nullable()->unique();
-            $table->unsignedBigInteger('facebook_id')->nullable()->unique();
-            $table->string('instagram_id', 30)->nullable()->unique();
+            $table->json('social_media_links')->default(new Expression('(JSON_ARRAY())'));
             $table->string('email')->nullable()->unique();
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');

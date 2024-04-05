@@ -58,7 +58,7 @@ class DealDatasets
                     'annual' => 'g',
                     'image' => 'pizza.png',
                 ],
-                'invalidFields' => ['datetime', 'annual']
+                'invalidFields' => ['interest_ids', 'tag_ids', 'datetime', 'annual']
             ],
             [
                 'data' => [

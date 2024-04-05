@@ -30,6 +30,7 @@ it('can retrieve contacts', function () {
                     $json->where('id', $contacts->id)
                         ->where('name', 'Mahmoud Ahmed')
                         ->has('location')
+                        ->has('social_media_links')
                         ->missing('interest_ids')
                         ->etc()
                 )
@@ -48,6 +49,7 @@ it('can retrieve contact', function () {
             $json->where('id', $contact->id)
                 ->where('interest_ids', $intresestIds)
                 ->missing('location')
+                ->has('social_media_links')
                 ->etc()
         );
 });

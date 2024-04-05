@@ -20,9 +20,9 @@ class DealRequest extends FormRequest
             'datetime' => 'required|date|date_format:Y-m-d H:i:s',
             'annual' => 'required|boolean',
             'image' => 'string',
-            'tag_ids' => 'array',
+            'tag_ids' => 'present|array',
             'tag_ids.*' => 'integer|exists:tags,id',
-            'interest_ids' => 'array',
+            'interest_ids' => 'present|array',
             'interest_ids.*' => 'integer|exists:interests,id'
         ];
     }

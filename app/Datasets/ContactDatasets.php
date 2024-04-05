@@ -12,8 +12,7 @@ class ContactDatasets
         return [
             'name' => 'Ahmed Mahmoud',
             'phone' => '777514829',
-            'facebook_id' => '12531093',
-            'instagram_id' => 'mahmoudahmed404',
+            'social_media_links' => '{ "facebook": "https://www.facebook.com/456466", "instagram": "https://www.instagram.com/example0" }',
             'email' => 'mahmood@ahmed.com',
             'location_id' => Location::first()->id,
             'birthday' => now()->subDecade(2)->format('Y-m-d'),
@@ -26,8 +25,7 @@ class ContactDatasets
             [
                 'name' => 'Mahmoud Ahmed',
                 'phone' => '737514829',
-                'facebook_id' => '12831093',
-                'instagram_id' => 'mahmoodahmed404',
+                'social_media_links' => '{ "facebook": "https://www.facebook.com/14083", "instagram": "https://www.instagram.com/example1" }',
                 'email' => 'mahmoud@ahmed.com',
                 'location_id' => Location::first()->id,
                 'birthday' => now()->subDecade(2)->format('Y-m-d'),
@@ -42,46 +40,41 @@ class ContactDatasets
                 'data' => [
                     'name' => 'Mahmoud1212hmed',
                     'phone' => '737514829',
-                    'facebook_id' => '12831093',
-                    'instagram_id' => 'mahmoodahmed404',
+                    'social_media_links' => 1,
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2),
                     'interest_ids' => []
                 ],
-                'invalidFields' => ['name', 'birthday']
+                'invalidFields' => ['social_media_links' ,'name', 'birthday']
             ],
             [
                 'data' => [
                     'name' => 'Mahmoud1212hmed',
                     'phone' => '737514829',
-                    'facebook_id' => '12831093',
-                    'instagram_id' => 'mahmoodahmed404',
+                    'social_media_links' => '{ "facebook": "https://www.facebook.com/11001", "instagram": "https://www.instagram.com/example2" }',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2),
                 ],
-                'invalidFields' => ['name', 'birthday']
+                'invalidFields' => ['interest_ids', 'name', 'birthday']
             ],
             [
                 'data' => [
                     'name' => 'Mahmoud Ahmed',
                     'phone' => Contact::first()->phone,
-                    'facebook_id' => Contact::first()->facebook_id,
-                    'instagram_id' => Contact::first()->instagram_id,
+                    'social_media_links' => 'tttt',
                     'email' => Contact::first()->email,
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
-                'invalidFields' => ['facebook_id','instagram_id','email', 'phone']
+                'invalidFields' => ['social_media_links', 'email', 'phone']
             ],
             [
                 'data' => [
                     'name' => 'Mahmoud Ahmed',
                     'phone' => '7375R4829',
-                    'facebook_id' => '12831093',
-                    'instagram_id' => 'mahmoodahmed404',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
@@ -93,8 +86,6 @@ class ContactDatasets
                 'data' => [
                     'name' => 'Mahmoud Ahmed',
                     'phone' => '73754829',
-                    'facebook_id' => '12831093',
-                    'instagram_id' => 'mahmoodahmed404',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => 'ttt',
                     'birthday' => '2055 2 1',
@@ -105,28 +96,13 @@ class ContactDatasets
             [
                 'data' => [
                     'name' => 'Mahmoud Ahmed',
-                    'phone' => '737544829',
-                    'facebook_id' => '12r831093',
-                    'instagram_id' => 'mahmoodahmed40466666666666666666444444444',
-                    'email' => 'mahmoudahmed.com',
-                    'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2)->format('Y-m-d'),
-                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
-                ],
-                'invalidFields' => ['facebook_id','instagram_id','email']
-            ],
-            [
-                'data' => [
-                    'name' => 'Mahmoud Ahmed',
                     'phone' => '737514829',
-                    'facebook_id' => '12831093',
-                    'instagram_id' => 'mahmoodahmed404',
-                    'email' => 'mahmoud@ahmed.com',
+                    'email' => 'mmahmoudahmed.com',
                     'location_id' => 1000,
                     'birthday' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => [1000, 2000, Interest::first()->id],
                 ],
-                'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1']
+                'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1', 'email']
             ],
         ];
     }

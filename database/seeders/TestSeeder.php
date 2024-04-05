@@ -36,8 +36,7 @@ class TestSeeder extends Seeder
         Contact::factory()->create([
             'name' => 'Mahmoud Ahmed',
             'phone' => '123456789',
-            'facebook_id' => '1231',
-            'instagram_id' => 'gffhjdh3',
+            'social_media_links' => '{ "facebook": "https://www.facebook.com/123456", "instagram": "https://www.instagram.com/example" }',
             'email' => 'ddd@ddd.com'
         ]);
         Contact::factory(29)->create();

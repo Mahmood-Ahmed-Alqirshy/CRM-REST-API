@@ -21,8 +21,7 @@ class Contact extends Model
     protected $fillable = [
         'name',
         'phone',
-        'facebook_id',
-        'instagram_id',
+        'social_media_links',
         'email',
         'location_id',
         'birthday',
@@ -35,7 +34,7 @@ class Contact extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'facebook_id' => 'integer',
+        'social_media_links' => 'array',
         'location_id' => 'integer',
         'birthday' => 'date:Y-m-d',
     ];

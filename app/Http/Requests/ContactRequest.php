@@ -16,12 +16,11 @@ class ContactRequest extends FormRequest
         return [
             'name' => 'required|string|regex:/^[\p{L}\p{M}\s]+$/u|max:255',
             'phone' => 'nullable|string|regex:/^[\d]+$/|min:9|max:9|unique:contacts',
-            'facebook_id' => 'nullable|integer|unique:contacts',
-            'instagram_id' => 'nullable|string|max:30|unique:contacts',
+            'social_media_links' => 'sometimes|string|json',
             'email' => 'nullable|string|email|max:255|unique:contacts',
             'location_id' => 'required|integer|exists:locations,id',
             'birthday' => 'required|date|date_format:Y-m-d',
-            'interest_ids' => 'array',
+            'interest_ids' => 'present|array',
             'interest_ids.*' => 'integer|exists:interests,id'
         ];
     }
