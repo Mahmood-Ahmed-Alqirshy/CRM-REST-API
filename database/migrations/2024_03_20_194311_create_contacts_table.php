@@ -17,12 +17,12 @@ return new class extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone', 45)->nullable()->unique();
+            $table->string('phone', 45)->unique();
             $table->json('social_media_links')->default(new Expression('(JSON_ARRAY())'));
-            $table->string('email')->nullable()->unique();
-            $table->unsignedBigInteger('location_id');
+            $table->string('email')->unique();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->timestamps();
         });
 

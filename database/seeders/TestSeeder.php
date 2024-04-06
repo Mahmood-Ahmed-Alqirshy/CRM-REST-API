@@ -39,6 +39,16 @@ class TestSeeder extends Seeder
             'social_media_links' => '{ "facebook": "https://www.facebook.com/123456", "instagram": "https://www.instagram.com/example" }',
             'email' => 'ddd@ddd.com'
         ]);
-        Contact::factory(29)->create();
+
+        // i used for to create unique phone and email for every user
+        // because unique() function in faker do not work properly
+        for ($i=0; $i < 29; $i++) { 
+            Contact::factory()->create(
+                [
+                    'phone' => str_pad($i, 9, 0, STR_PAD_LEFT),
+                    'email' => "mahmoud$i@example.com",
+                ]
+            );
+        }
     }
 }

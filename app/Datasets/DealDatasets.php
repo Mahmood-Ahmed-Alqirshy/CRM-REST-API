@@ -32,6 +32,13 @@ class DealDatasets
                 'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
                 'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
             ],
+            [
+                'heading' => 'good burger',
+                'description' => 'i will be honest it is good',
+                'datetime' => now()->addWeek(3)->format('Y-m-d H:i:s'),
+                'tag_ids' => [],
+                'interest_ids' => [],
+            ],
         ];
     }
 
@@ -49,6 +56,13 @@ class DealDatasets
                     'interest_ids' => [],    
                 ],
                 'invalidFields' => ['datetime', 'is_annual']
+            ],
+            [
+                'data' => [
+                    'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
+                ],
+                'invalidFields' => ['heading', 'description', 'datetime']
             ],
             [
                 'data' => [

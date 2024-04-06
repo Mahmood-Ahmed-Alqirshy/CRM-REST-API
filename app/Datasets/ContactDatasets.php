@@ -31,6 +31,12 @@ class ContactDatasets
                 'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                 'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
             ],
+            [
+                'name' => 'Mahmoud Ahmed',
+                'phone' => '777514829',
+                'email' => 'mahmoud2@ahmed.com',
+                'interest_ids' => [],
+            ],
         ];
     }
 
@@ -50,14 +56,20 @@ class ContactDatasets
             ],
             [
                 'data' => [
+                    'interest_ids' => [],
+                ],
+                'invalidFields' => ['name' ,'phone', 'email']
+            ],
+            [
+                'data' => [
                     'name' => 'Mahmoud1212hmed',
-                    'phone' => '737514829',
+                    'phone' => '737514   ',
                     'social_media_links' => '{ "facebook": "https://www.facebook.com/11001", "instagram": "https://www.instagram.com/example2" }',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birth_date' => now()->subDecade(2),
                 ],
-                'invalidFields' => ['interest_ids', 'name', 'birth_date']
+                'invalidFields' => ['interest_ids', 'name', 'birth_date', 'phone']
             ],
             [
                 'data' => [

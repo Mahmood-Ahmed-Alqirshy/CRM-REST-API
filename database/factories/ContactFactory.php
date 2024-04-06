@@ -24,9 +24,9 @@ class ContactFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'phone' => null,
+            'phone' => '777777777',
             'social_media_links' => '{}',
-            'email' => null,
+            'email' => 'example@example.com',
             'location_id' => Location::factory()->create(),
             'birth_date' => $this->faker->dateTimeBetween(now()->subDecade(3),now()->subDecade(1)),
         ];

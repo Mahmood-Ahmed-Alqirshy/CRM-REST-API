@@ -15,11 +15,11 @@ class ContactRequest extends FormRequest
     {
         return [
             'name' => 'required|string|regex:/^[\p{L}\p{M}\s]+$/u|max:255',
-            'phone' => 'nullable|string|regex:/^[\d]+$/|min:9|max:9|unique:contacts',
+            'phone' => 'required|string|regex:/^[\d]+$/|min:9|max:9|unique:contacts',
             'social_media_links' => 'sometimes|string|json',
-            'email' => 'nullable|string|email|max:255|unique:contacts',
-            'location_id' => 'required|integer|exists:locations,id',
-            'birth_date' => 'required|date|date_format:Y-m-d',
+            'email' => 'required|string|email|max:255|unique:contacts',
+            'location_id' => 'sometimes|nullable|integer|exists:locations,id',
+            'birth_date' => 'sometimes|nullable|date|date_format:Y-m-d',
             'interest_ids' => 'present|array',
             'interest_ids.*' => 'integer|exists:interests,id'
         ];
