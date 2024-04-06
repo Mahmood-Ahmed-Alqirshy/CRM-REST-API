@@ -24,7 +24,7 @@ class DealFactory extends Factory
             'heading' => $this->faker->text(),
             'description' => $this->faker->paragraph(),
             'datetime' => now()->addWeek(),
-            'annual' => $this->faker->boolean(),
+            'is_annual' => $this->faker->boolean(),
             'image' => $this->faker->imageUrl(),
         ];
     }

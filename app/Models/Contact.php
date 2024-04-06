@@ -24,7 +24,7 @@ class Contact extends Model
         'social_media_links',
         'email',
         'location_id',
-        'birthday',
+        'birth_date',
     ];
 
     /**
@@ -36,7 +36,7 @@ class Contact extends Model
         'id' => 'integer',
         'social_media_links' => 'array',
         'location_id' => 'integer',
-        'birthday' => 'date:Y-m-d',
+        'birth_date' => 'date:Y-m-d',
     ];
 
     protected $hidden = ['updated_at', 'created_at'];

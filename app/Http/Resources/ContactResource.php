@@ -21,7 +21,7 @@ class ContactResource extends JsonResource
             'social_media_links' => $this->social_media_links,
             'email' => $this->email,
             'location_id' => $this->location_id,
-            'birthday' => date_format($this->birthday, 'Y-m-d'),
+            'birth_date' => date_format($this->birth_date, 'Y-m-d'),
             'location' => $this->whenLoaded('location', fn() => $this->location->name),
             'interest_ids' => $this->whenLoaded('interests', fn() => $this->interests->pluck('id')->toArray()),
         ];

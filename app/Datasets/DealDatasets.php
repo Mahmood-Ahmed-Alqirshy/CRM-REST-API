@@ -13,7 +13,7 @@ class DealDatasets
             'heading' => 'very good burger',
             'description' => 'i will be honest it is good',
             'datetime' => now()->addWeek(3)->format('Y-m-d H:i:s'),
-            'annual' => false,
+            'is_annual' => false,
             'image' => 'pizza.png',
             'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
             'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
@@ -27,7 +27,7 @@ class DealDatasets
                 'heading' => 'good burger',
                 'description' => 'i will be honest it is good',
                 'datetime' => now()->addWeek(3)->format('Y-m-d H:i:s'),
-                'annual' => false,
+                'is_annual' => false,
                 'image' => 'pizza.png',
                 'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
                 'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
@@ -43,29 +43,29 @@ class DealDatasets
                     'heading' => 'good burger',
                     'description' => 'i will be honest it is good',
                     'datetime' => 2,
-                    'annual' => 'g',
+                    'is_annual' => 'g',
                     'image' => 'pizza.png',
                     'tag_ids' => [],
                     'interest_ids' => [],    
                 ],
-                'invalidFields' => ['datetime', 'annual']
+                'invalidFields' => ['datetime', 'is_annual']
             ],
             [
                 'data' => [
                     'heading' => 'good burger',
                     'description' => 'i will be honest it is good',
                     'datetime' => 2,
-                    'annual' => 'g',
+                    'is_annual' => 'g',
                     'image' => 'pizza.png',
                 ],
-                'invalidFields' => ['interest_ids', 'tag_ids', 'datetime', 'annual']
+                'invalidFields' => ['interest_ids', 'tag_ids', 'datetime', 'is_annual']
             ],
             [
                 'data' => [
                     'heading' => 'good burger',
                     'description' => 'i will be honest it is good',
                     'datetime' => now()->addWeek(3),
-                    'annual' => true,
+                    'is_annual' => true,
                     'image' => 'pizza.png',
                     'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray(),    
@@ -77,7 +77,7 @@ class DealDatasets
                     'heading' => 'good burger',
                     'description' => 'i will be honest it is good',
                     'datetime' => 2,
-                    'annual' => false,
+                    'is_annual' => false,
                     'image' => 'pizza.png',
                     'tag_ids' => [...Tag::take(3)->pluck('id')->toArray(), 400],
                     'interest_ids' => [...Interest::take(3)->pluck('id')->toArray(), 500, 900],

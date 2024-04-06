@@ -28,7 +28,7 @@ class TestSeeder extends Seeder
             'heading' => 'good pizza',
             'description' => 'it is really good',
             'datetime' => now()->addWeek(3),
-            'annual' => false,
+            'is_annual' => false,
             'image' => 'pizza.png',
         ]);
         Deal::factory(29)->create();

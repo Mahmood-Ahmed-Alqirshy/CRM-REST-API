@@ -28,7 +28,7 @@ class ContactFactory extends Factory
             'social_media_links' => '{}',
             'email' => null,
             'location_id' => Location::factory()->create(),
-            'birthday' => $this->faker->dateTimeBetween(now()->subDecade(3),now()->subDecade(1)),
+            'birth_date' => $this->faker->dateTimeBetween(now()->subDecade(3),now()->subDecade(1)),
         ];
     }
 }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->nullable()->unique();
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->date('birthday');
+            $table->date('birth_date');
             $table->timestamps();
         });
 

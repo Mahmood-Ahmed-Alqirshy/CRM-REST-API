@@ -43,7 +43,7 @@ No payload requierd.
 -   social_media_links
 -   email
 -   location_id
--   birthday
+-   birth_date
 -   location
 
 ## `GET` - /api/contacts/{id}
@@ -61,7 +61,7 @@ No payload requierd.
 -   social_media_links
 -   email
 -   location_id
--   birthday
+-   birth_date
 -   interest_ids
 
 ## `POST` - /api/contacts
@@ -80,7 +80,7 @@ No payload requierd.
 | social_media_links | <ul><li>Json string</li><li>May be unpresent in the payload</li></ul>                             |
 | email              | <ul><li>Email</li><li>Must be unique</li><li>Max length is 255</li></ul>                          |
 | location_id        | <ul><li>Requierd</li><li>Number</li><li>Exists in locations table</li></ul>                       |
-| birthday           | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
+| birth_date           | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
 | interest_ids       | <ul><li>present</li><li>Array</li></ul>                                                           |
 | interest_ids.\*    | <ul><li>Number</li><li>Exists in interests table</li></ul>                                        |
 
@@ -100,7 +100,7 @@ No payload requierd.
 | social_media_links | <ul><li>Json string</li><li>May be unpresent in the payload</li></ul>                             |
 | email              | <ul><li>Email</li><li>Must be unique</li><li>Max length is 255</li></ul>                          |
 | location_id        | <ul><li>Requierd</li><li>Number</li><li>Exists in locations table</li></ul>                       |
-| birthday           | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
+| birth_date           | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d</li></ul>                                    |
 | interest_ids       | <ul><li>present</li><li>Array</li></ul>                                                           |
 | interest_ids.\*    | <ul><li>Number</li><li>Exists in interests table</li></ul>                                        |
 
@@ -128,7 +128,7 @@ No payload requierd.
 -   heading
 -   description
 -   datetime
--   annual
+-   is_annual
 -   image
 
 ## `GET` - /api/deals/{id}
@@ -144,7 +144,7 @@ No payload requierd.
 -   heading
 -   description
 -   datetime
--   annual
+-   is_annual
 -   image
 -   tag_ids
 -   interest_ids
@@ -163,7 +163,7 @@ No payload requierd.
 | heading         | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li></ul>  |
 | description     | <ul><li>Requierd</li><li>String</li></ul>                            |
 | datetime        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d H:i:s</li></ul> |
-| annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                           |
+| is_annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                           |
 | image           | <ul><li>String</li></ul>                                             |
 | interest_ids    | <ul><li>present</li><li>Array</li></ul>                              |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul>           |
@@ -184,7 +184,7 @@ No payload requierd.
 | heading         | <ul><li>Requierd</li><li>String</li><li>Max length is 255</li></ul>  |
 | description     | <ul><li>Requierd</li><li>String</li></ul>                            |
 | datetime        | <ul><li>Requierd</li><li>Date</li><li>Format : Y-m-d H:i:s</li></ul> |
-| annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                           |
+| is_annual          | <ul><li>Requierd</li><li>Boolean</li></ul>                           |
 | image           | <ul><li>String</li></ul>                                             |
 | interest_ids    | <ul><li>present</li><li>Array</li></ul>                              |
 | interest_ids.\* | <ul><li>Number</li><li>Exists in interests table</li></ul>           |

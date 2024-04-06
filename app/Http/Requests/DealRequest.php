@@ -18,7 +18,7 @@ class DealRequest extends FormRequest
             'heading' => 'required|string|max:255',
             'description' => 'required|string',
             'datetime' => 'required|date|date_format:Y-m-d H:i:s',
-            'annual' => 'required|boolean',
+            'is_annual' => 'required|boolean',
             'image' => 'string',
             'tag_ids' => 'present|array',
             'tag_ids.*' => 'integer|exists:tags,id',

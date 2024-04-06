@@ -19,7 +19,7 @@ class Deal extends Model
         'heading',
         'description',
         'datetime',
-        'annual',
+        'is_annual',
         'image',
     ];
 
@@ -31,7 +31,7 @@ class Deal extends Model
     protected $casts = [
         'id' => 'integer',
         'datetime' => 'datetime:Y-m-d H:i:s',
-        'annual' => 'boolean',
+        'is_annual' => 'boolean',
     ];
 
     protected $hidden = ['updated_at', 'created_at'];

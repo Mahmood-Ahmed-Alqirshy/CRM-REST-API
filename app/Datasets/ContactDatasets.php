@@ -15,7 +15,7 @@ class ContactDatasets
             'social_media_links' => '{ "facebook": "https://www.facebook.com/456466", "instagram": "https://www.instagram.com/example0" }',
             'email' => 'mahmood@ahmed.com',
             'location_id' => Location::first()->id,
-            'birthday' => now()->subDecade(2)->format('Y-m-d'),
+            'birth_date' => now()->subDecade(2)->format('Y-m-d'),
             'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
         ];
     }
@@ -28,7 +28,7 @@ class ContactDatasets
                 'social_media_links' => '{ "facebook": "https://www.facebook.com/14083", "instagram": "https://www.instagram.com/example1" }',
                 'email' => 'mahmoud@ahmed.com',
                 'location_id' => Location::first()->id,
-                'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                 'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
             ],
         ];
@@ -43,10 +43,10 @@ class ContactDatasets
                     'social_media_links' => 1,
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2),
+                    'birth_date' => now()->subDecade(2),
                     'interest_ids' => []
                 ],
-                'invalidFields' => ['social_media_links' ,'name', 'birthday']
+                'invalidFields' => ['social_media_links' ,'name', 'birth_date']
             ],
             [
                 'data' => [
@@ -55,9 +55,9 @@ class ContactDatasets
                     'social_media_links' => '{ "facebook": "https://www.facebook.com/11001", "instagram": "https://www.instagram.com/example2" }',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2),
+                    'birth_date' => now()->subDecade(2),
                 ],
-                'invalidFields' => ['interest_ids', 'name', 'birthday']
+                'invalidFields' => ['interest_ids', 'name', 'birth_date']
             ],
             [
                 'data' => [
@@ -66,7 +66,7 @@ class ContactDatasets
                     'social_media_links' => 'tttt',
                     'email' => Contact::first()->email,
                     'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                    'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray()
                 ],
                 'invalidFields' => ['social_media_links', 'email', 'phone']
@@ -77,7 +77,7 @@ class ContactDatasets
                     'phone' => '7375R4829',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
-                    'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                    'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => 1
                 ],
                 'invalidFields' => ['phone', 'interest_ids']
@@ -88,10 +88,10 @@ class ContactDatasets
                     'phone' => '73754829',
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => 'ttt',
-                    'birthday' => '2055 2 1',
+                    'birth_date' => '2055 2 1',
                     'interest_ids' => 'ggg'
                 ],
-                'invalidFields' => ['phone', 'birthday', 'interest_ids','location_id']
+                'invalidFields' => ['phone', 'birth_date', 'interest_ids','location_id']
             ],
             [
                 'data' => [
@@ -99,7 +99,7 @@ class ContactDatasets
                     'phone' => '737514829',
                     'email' => 'mmahmoudahmed.com',
                     'location_id' => 1000,
-                    'birthday' => now()->subDecade(2)->format('Y-m-d'),
+                    'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => [1000, 2000, Interest::first()->id],
                 ],
                 'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1', 'email']

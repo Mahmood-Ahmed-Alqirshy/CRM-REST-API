@@ -19,7 +19,7 @@ class ContactRequest extends FormRequest
             'social_media_links' => 'sometimes|string|json',
             'email' => 'nullable|string|email|max:255|unique:contacts',
             'location_id' => 'required|integer|exists:locations,id',
-            'birthday' => 'required|date|date_format:Y-m-d',
+            'birth_date' => 'required|date|date_format:Y-m-d',
             'interest_ids' => 'present|array',
             'interest_ids.*' => 'integer|exists:interests,id'
         ];

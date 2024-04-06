@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('heading');
             $table->text('description');
             $table->dateTime('datetime');
-            $table->boolean('annual');
+            $table->boolean('is_annual');
             $table->text('image');
             $table->timestamps();
         });
