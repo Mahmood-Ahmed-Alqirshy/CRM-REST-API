@@ -21,7 +21,7 @@ class ContactRequest extends FormRequest
             'location_id' => 'sometimes|nullable|integer|exists:locations,id',
             'birth_date' => 'sometimes|nullable|date|date_format:Y-m-d',
             'interest_ids' => 'present|array',
-            'interest_ids.*' => 'integer|exists:interests,id'
+            'interest_ids.*' => 'integer|exists:interests,id',
         ];
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class DealRequest extends FormRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,7 +22,7 @@ class DealRequest extends FormRequest
             'tag_ids' => 'present|array',
             'tag_ids.*' => 'integer|exists:tags,id',
             'interest_ids' => 'present|array',
-            'interest_ids.*' => 'integer|exists:interests,id'
+            'interest_ids.*' => 'integer|exists:interests,id',
         ];
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('deal_tag', function (Blueprint $table) {
             $table->foreignId('deal_id');
             $table->foreignId('tag_id');
-            $table->primary(['deal_id','tag_id']);
+            $table->primary(['deal_id', 'tag_id']);
         });
     }
 

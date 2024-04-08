@@ -13,12 +13,10 @@ it('can retrieve tags', function () {
     $this->getJson('/api/tags', ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
+            fn (AssertableJson $json) => $json->has(
                 'data',
                 $tags->count(),
-                fn (AssertableJson $json) =>
-                $json->where('id', $tags->first()->id)
+                fn (AssertableJson $json) => $json->where('id', $tags->first()->id)
                     ->has('name')
             )
                 ->where('total', $tags->count())
@@ -33,7 +31,7 @@ it('can store tag', function () {
     sleep(1);
 
     $this->postJson('/api/tags', $request, ['Authorization' => "Bearer $this->token"])
-    ->assertCreated();
+        ->assertCreated();
 
     $newTag = Tag::latest()->first()->toArray();
     expect($newTag)->toMatchArray($request);
@@ -53,8 +51,8 @@ it("can't store invalid tag", function () {
 
 it('protect Tag endpoints', function () {
     $this->getJson('/api/tags')
-       ->assertUnauthorized();
+        ->assertUnauthorized();
 
     $this->postJson('/api/tags')
-       ->assertUnauthorized();
- });
+        ->assertUnauthorized();
+});

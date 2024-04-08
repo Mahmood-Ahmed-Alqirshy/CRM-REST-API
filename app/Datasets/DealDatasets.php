@@ -53,16 +53,16 @@ class DealDatasets
                     'is_annual' => 'g',
                     'image' => 'pizza.png',
                     'tag_ids' => [],
-                    'interest_ids' => [],    
+                    'interest_ids' => [],
                 ],
-                'invalidFields' => ['datetime', 'is_annual']
+                'invalidFields' => ['datetime', 'is_annual'],
             ],
             [
                 'data' => [
                     'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
                     'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
                 ],
-                'invalidFields' => ['heading', 'description', 'datetime']
+                'invalidFields' => ['heading', 'description', 'datetime'],
             ],
             [
                 'data' => [
@@ -72,7 +72,7 @@ class DealDatasets
                     'is_annual' => 'g',
                     'image' => 'pizza.png',
                 ],
-                'invalidFields' => ['interest_ids', 'tag_ids', 'datetime', 'is_annual']
+                'invalidFields' => ['interest_ids', 'tag_ids', 'datetime', 'is_annual'],
             ],
             [
                 'data' => [
@@ -82,9 +82,9 @@ class DealDatasets
                     'is_annual' => true,
                     'image' => 'pizza.png',
                     'tag_ids' => Tag::take(3)->pluck('id')->toArray(),
-                    'interest_ids' => Interest::take(3)->pluck('id')->toArray(),    
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
                 ],
-                'invalidFields' => ['datetime']
+                'invalidFields' => ['datetime'],
             ],
             [
                 'data' => [
@@ -96,7 +96,7 @@ class DealDatasets
                     'tag_ids' => [...Tag::take(3)->pluck('id')->toArray(), 400],
                     'interest_ids' => [...Interest::take(3)->pluck('id')->toArray(), 500, 900],
                 ],
-                'invalidFields' => ['datetime', 'tag_ids.3', 'interest_ids.3', 'interest_ids.4']
+                'invalidFields' => ['datetime', 'tag_ids.3', 'interest_ids.3', 'interest_ids.4'],
             ],
         ];
     }

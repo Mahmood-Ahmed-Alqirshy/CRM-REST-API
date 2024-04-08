@@ -35,7 +35,8 @@ class Location extends Model
         return $this->hasMany(Contact::class);
     }
 
-    public static function seeds() {
+    public static function seeds()
+    {
         return [
             ['name' => 'المنصورة'],
             ['name' => 'الشيخ عثمان'],
@@ -46,5 +47,5 @@ class Location extends Model
             ['name' => 'كريتر'],
             ['name' => 'خور مكسر'],
         ];
-    } 
+    }
 }

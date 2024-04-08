@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Contact;
-use App\Models\Deal;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,13 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        foreach(Interest::seeds() as $interest)
+        foreach (Interest::seeds() as $interest) {
             Interest::factory()->create($interest);
+        }
 
-        foreach(Tag::seeds() as $tag)
+        foreach (Tag::seeds() as $tag) {
             Tag::factory()->create($tag);
+        }
 
-        foreach(Location::seeds() as $location)
+        foreach (Location::seeds() as $location) {
             Location::factory()->create($location);
+        }
     }
 }

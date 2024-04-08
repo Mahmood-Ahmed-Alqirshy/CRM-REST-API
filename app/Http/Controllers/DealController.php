@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DealRequest;
 use App\Http\Resources\DealResource;
 use App\Models\Deal;
-use Illuminate\Http\Request;
 
 class DealController extends Controller
 {
@@ -63,7 +62,7 @@ class DealController extends Controller
     public function destroy(Deal $deal)
     {
         $deal->delete();
-        
+
         return response()->json(['massage' => 'The request has succeeded.', 200]);
     }
 }

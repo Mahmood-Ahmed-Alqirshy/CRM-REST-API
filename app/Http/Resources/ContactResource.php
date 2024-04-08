@@ -22,8 +22,8 @@ class ContactResource extends JsonResource
             'email' => $this->email,
             'location_id' => $this->location_id,
             'birth_date' => date_format($this->birth_date, 'Y-m-d'),
-            'location' => $this->whenLoaded('location', fn() => $this->location->name),
-            'interest_ids' => $this->whenLoaded('interests', fn() => $this->interests->pluck('id')->toArray()),
+            'location' => $this->whenLoaded('location', fn () => $this->location->name),
+            'interest_ids' => $this->whenLoaded('interests', fn () => $this->interests->pluck('id')->toArray()),
         ];
     }
 }

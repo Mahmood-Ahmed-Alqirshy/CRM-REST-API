@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Blueprint\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 
 class AuthenticationController extends Controller
 {
@@ -15,7 +12,7 @@ class AuthenticationController extends Controller
     {
         $validated = $request->validate([
             'username' => 'required|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ]);
         $user = User::all()
             ->where('username', $validated['username'])
@@ -23,6 +20,7 @@ class AuthenticationController extends Controller
 
         if ($user && Hash::check($validated['password'], $user->password)) {
             $token = $user->createToken($validated['username']);
+
             return ['token' => $token->plainTextToken];
         } else {
             return response()->json(['massage' => 'wrong password or username'], 401);
@@ -32,8 +30,7 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+
         return response()->json(['message' => 'loged out'], 200);
     }
 }
-
-

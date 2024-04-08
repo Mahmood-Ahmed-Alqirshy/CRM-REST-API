@@ -17,8 +17,7 @@ it('can retrieve contacts', function () {
     $this->getJson('/api/contacts', ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('meta')
+            fn (AssertableJson $json) => $json->has('meta')
                 ->where('meta.last_page', 2)
                 ->whereNot('meta.from', null)
                 ->where('meta.total', 30)
@@ -26,8 +25,7 @@ it('can retrieve contacts', function () {
                 ->has(
                     'data',
                     15,
-                    fn (AssertableJson $json) =>
-                    $json->where('id', $contacts->id)
+                    fn (AssertableJson $json) => $json->where('id', $contacts->id)
                         ->where('name', 'Mahmoud Ahmed')
                         ->has('location')
                         ->has('social_media_links')
@@ -45,8 +43,7 @@ it('can retrieve contact', function () {
     $this->getJson("/api/contacts/$contact->id", ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->where('id', $contact->id)
+            fn (AssertableJson $json) => $json->where('id', $contact->id)
                 ->where('interest_ids', $intresestIds)
                 ->missing('location')
                 ->has('social_media_links')
@@ -122,17 +119,17 @@ it("can't update unexisting contact", function () {
 
 it('protect Contact endpoints', function () {
     $this->getJson('/api/contacts')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->getJson('/api/contacts/1')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->deleteJson('/api/contacts/1')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->postJson('/api/contacts')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->putJson('/api/contacts/1')
-       ->assertUnauthorized();
- });
+        ->assertUnauthorized();
+});

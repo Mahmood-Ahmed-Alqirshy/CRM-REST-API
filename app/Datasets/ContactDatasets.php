@@ -8,7 +8,8 @@ use App\Models\Location;
 
 class ContactDatasets
 {
-    public static function update() {
+    public static function update()
+    {
         return [
             'name' => 'Ahmed Mahmoud',
             'phone' => '777514829',
@@ -20,7 +21,8 @@ class ContactDatasets
         ];
     }
 
-    public static function valid() {
+    public static function valid()
+    {
         return [
             [
                 'name' => 'Mahmoud Ahmed',
@@ -40,7 +42,8 @@ class ContactDatasets
         ];
     }
 
-    public static function invalid() {
+    public static function invalid()
+    {
         return [
             [
                 'data' => [
@@ -50,15 +53,15 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birth_date' => now()->subDecade(2),
-                    'interest_ids' => []
+                    'interest_ids' => [],
                 ],
-                'invalidFields' => ['social_media_links' ,'name', 'birth_date']
+                'invalidFields' => ['social_media_links', 'name', 'birth_date'],
             ],
             [
                 'data' => [
                     'interest_ids' => [],
                 ],
-                'invalidFields' => ['name' ,'phone', 'email']
+                'invalidFields' => ['name', 'phone', 'email'],
             ],
             [
                 'data' => [
@@ -69,7 +72,7 @@ class ContactDatasets
                     'location_id' => Location::first()->id,
                     'birth_date' => now()->subDecade(2),
                 ],
-                'invalidFields' => ['interest_ids', 'name', 'birth_date', 'phone']
+                'invalidFields' => ['interest_ids', 'name', 'birth_date', 'phone'],
             ],
             [
                 'data' => [
@@ -79,9 +82,9 @@ class ContactDatasets
                     'email' => Contact::first()->email,
                     'location_id' => Location::first()->id,
                     'birth_date' => now()->subDecade(2)->format('Y-m-d'),
-                    'interest_ids' => Interest::take(3)->pluck('id')->toArray()
+                    'interest_ids' => Interest::take(3)->pluck('id')->toArray(),
                 ],
-                'invalidFields' => ['social_media_links', 'email', 'phone']
+                'invalidFields' => ['social_media_links', 'email', 'phone'],
             ],
             [
                 'data' => [
@@ -90,9 +93,9 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => Location::first()->id,
                     'birth_date' => now()->subDecade(2)->format('Y-m-d'),
-                    'interest_ids' => 1
+                    'interest_ids' => 1,
                 ],
-                'invalidFields' => ['phone', 'interest_ids']
+                'invalidFields' => ['phone', 'interest_ids'],
             ],
             [
                 'data' => [
@@ -101,9 +104,9 @@ class ContactDatasets
                     'email' => 'mahmoud@ahmed.com',
                     'location_id' => 'ttt',
                     'birth_date' => '2055 2 1',
-                    'interest_ids' => 'ggg'
+                    'interest_ids' => 'ggg',
                 ],
-                'invalidFields' => ['phone', 'birth_date', 'interest_ids','location_id']
+                'invalidFields' => ['phone', 'birth_date', 'interest_ids', 'location_id'],
             ],
             [
                 'data' => [
@@ -114,7 +117,7 @@ class ContactDatasets
                     'birth_date' => now()->subDecade(2)->format('Y-m-d'),
                     'interest_ids' => [1000, 2000, Interest::first()->id],
                 ],
-                'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1', 'email']
+                'invalidFields' => ['location_id', 'interest_ids.0', 'interest_ids.1', 'email'],
             ],
         ];
     }

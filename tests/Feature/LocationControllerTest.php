@@ -13,12 +13,10 @@ it('can retrieve locations', function () {
     $this->getJson('/api/locations', ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(
+            fn (AssertableJson $json) => $json->has(
                 'data',
                 $locations->count(),
-                fn (AssertableJson $json) =>
-                $json->where('id', $locations->first()->id)
+                fn (AssertableJson $json) => $json->where('id', $locations->first()->id)
                     ->has('name')
             )
                 ->where('total', $locations->count())
@@ -33,7 +31,7 @@ it('can store location', function () {
     sleep(1);
 
     $this->postJson('/api/locations', $request, ['Authorization' => "Bearer $this->token"])
-    ->assertCreated();
+        ->assertCreated();
 
     $newLocation = Location::latest()->first()->toArray();
     expect($newLocation)->toMatchArray($request);
@@ -53,8 +51,8 @@ it("can't store invalid location", function () {
 
 it('protect Location endpoints', function () {
     $this->getJson('/api/locations')
-       ->assertUnauthorized();
+        ->assertUnauthorized();
 
     $this->postJson('/api/locations')
-       ->assertUnauthorized();
- });
+        ->assertUnauthorized();
+});

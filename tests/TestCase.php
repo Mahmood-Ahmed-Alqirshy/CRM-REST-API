@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    public function makeToken() {
+    public function makeToken()
+    {
         User::factory()->create(['username' => 'Mahmoud']);
 
         $response = $this->postJson('/api/login', $this->credentials, ['Accept' => 'application/json']);

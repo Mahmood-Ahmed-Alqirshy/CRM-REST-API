@@ -21,8 +21,8 @@ class DealResource extends JsonResource
             'datetime' => $this->datetime,
             'is_annual' => $this->is_annual,
             'image' => $this->image,
-            'tag_ids' => $this->whenLoaded('tags', fn() => $this->tags->pluck('id')->toArray()),
-            'interest_ids' => $this->whenLoaded('interests', fn() => $this->interests->pluck('id')->toArray()),
+            'tag_ids' => $this->whenLoaded('tags', fn () => $this->tags->pluck('id')->toArray()),
+            'interest_ids' => $this->whenLoaded('interests', fn () => $this->interests->pluck('id')->toArray()),
         ];
     }
 }

@@ -18,8 +18,7 @@ it('can retrieve deals', function () {
     $this->getJson('/api/deals', ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has('meta')
+            fn (AssertableJson $json) => $json->has('meta')
                 ->where('meta.last_page', 2)
                 ->whereNot('meta.from', null)
                 ->where('meta.total', 30)
@@ -27,8 +26,7 @@ it('can retrieve deals', function () {
                 ->has(
                     'data',
                     15,
-                    fn (AssertableJson $json) =>
-                    $json->where('id', $deal->id)
+                    fn (AssertableJson $json) => $json->where('id', $deal->id)
                         ->where('heading', 'good pizza')
                         ->missing('tag_ids')
                         ->missing('interest_ids')
@@ -47,8 +45,7 @@ it('can retrieve deal', function () {
     $this->getJson("/api/deals/$deal->id", ['Authorization' => "Bearer $this->token"])
         ->assertOK()
         ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->where('id', $deal->id)
+            fn (AssertableJson $json) => $json->where('id', $deal->id)
                 ->where('interest_ids', $intresestIds)
                 ->where('tag_ids', $tagIds)
                 ->etc()
@@ -124,17 +121,17 @@ it("can't update unexisting deal", function () {
 
 it('protect Deal endpoints', function () {
     $this->getJson('/api/deals')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->getJson('/api/deals/1')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->deleteJson('/api/deals/1')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->postJson('/api/deals')
-       ->assertUnauthorized();
- 
+        ->assertUnauthorized();
+
     $this->putJson('/api/deals/1')
-       ->assertUnauthorized();
- });
+        ->assertUnauthorized();
+});

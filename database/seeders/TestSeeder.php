@@ -8,7 +8,6 @@ use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TestSeeder extends Seeder
@@ -19,7 +18,7 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         Tag::factory(5)->create();
-        
+
         Location::factory(5)->create();
 
         Interest::factory(5)->create();
@@ -37,12 +36,12 @@ class TestSeeder extends Seeder
             'name' => 'Mahmoud Ahmed',
             'phone' => '123456789',
             'social_media_links' => '{ "facebook": "https://www.facebook.com/123456", "instagram": "https://www.instagram.com/example" }',
-            'email' => 'ddd@ddd.com'
+            'email' => 'ddd@ddd.com',
         ]);
 
         // i used for to create unique phone and email for every user
         // because unique() function in faker do not work properly
-        for ($i=0; $i < 29; $i++) { 
+        for ($i = 0; $i < 29; $i++) {
             Contact::factory()->create(
                 [
                     'phone' => str_pad($i, 9, 0, STR_PAD_LEFT),

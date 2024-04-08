@@ -40,7 +40,8 @@ class Interest extends Model
         return $this->belongsToMany(Contact::class);
     }
 
-    public static function seeds() {
+    public static function seeds()
+    {
         return [
             ['name' => 'عيد الميلاد'],
             ['name' => 'عطلة نهاية الأسبوع'],

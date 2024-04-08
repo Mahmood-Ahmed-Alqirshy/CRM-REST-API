@@ -34,7 +34,7 @@ class ContactController extends Controller
      * Display the specified resource.
      */
     public function show(Contact $contact)
-    {   
+    {
         return new ContactResource($contact->load('interests'));
     }
 
@@ -58,7 +58,7 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-        
+
         return response()->json(['massage' => 'The request has succeeded.', 200]);
     }
 }

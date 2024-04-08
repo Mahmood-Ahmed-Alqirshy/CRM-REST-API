@@ -2,11 +2,9 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Contact;
 use App\Models\Location;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ContactFactory extends Factory
 {
@@ -28,7 +26,7 @@ class ContactFactory extends Factory
             'social_media_links' => '{}',
             'email' => 'example@example.com',
             'location_id' => Location::factory()->create(),
-            'birth_date' => $this->faker->dateTimeBetween(now()->subDecade(3),now()->subDecade(1)),
+            'birth_date' => $this->faker->dateTimeBetween(now()->subDecade(3), now()->subDecade(1)),
         ];
     }
 }
