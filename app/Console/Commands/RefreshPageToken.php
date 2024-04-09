@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class RefreshPageToken extends Command
@@ -34,6 +34,6 @@ class RefreshPageToken extends Command
 
         $access_token = Arr::get($response, 'data.0.access_token');
 
-        DB::table('facebook_tokens')->updateOrInsert(['name' => 'page_access_token'], ['token' => $access_token]);
+        Cache::put('page_access_token', $access_token, 86400); // one day
     }
 }

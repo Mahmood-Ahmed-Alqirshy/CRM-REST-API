@@ -4,6 +4,7 @@ namespace App\APINotifications;
 
 use App\Models\Deal;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class Messenger
@@ -16,7 +17,7 @@ class Messenger
             ->withQueryParameters(
                 [
                     'fields' => 'participants',
-                    'access_token' => config('facebook.page_access_token'),
+                    'access_token' => Cache::get('page_access_token'),
                 ]
             )
             ->get('https://graph.facebook.com/v19.0/{page_id}/conversations')->json()['data'];
@@ -36,7 +37,7 @@ class Messenger
             Http::contentType('application/json')->withUrlParameters([
                 'page_id' => config('facebook.page_id'),
             ])->withQueryParameters([
-                'access_token' => config('facebook.page_access_token'),
+                'access_token' => Cache::get('page_access_token'),
             ])->post('https://graph.facebook.com/v19.0/{page_id}/messages', [
                 'recipient' => [
                     'id' => $id,
@@ -53,7 +54,7 @@ class Messenger
             Http::contentType('application/json')->withUrlParameters([
                 'page_id' => config('facebook.page_id'),
             ])->withQueryParameters([
-                'access_token' => config('facebook.page_access_token'),
+                'access_token' => Cache::get('page_access_token'),
             ])->post('https://graph.facebook.com/v19.0/{page_id}/messages', [
                 'recipient' => [
                     'id' => $id,
