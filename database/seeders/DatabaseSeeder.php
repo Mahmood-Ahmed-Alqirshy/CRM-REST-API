@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +25,6 @@ class DatabaseSeeder extends Seeder
         foreach (Location::seeds() as $location) {
             Location::factory()->create($location);
         }
+
     }
 }
