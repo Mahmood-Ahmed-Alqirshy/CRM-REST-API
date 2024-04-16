@@ -22,9 +22,9 @@ class ContactFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'phone' => '777777777',
+            'phone' => $this->faker->numberBetween(700000000, 799999999),
             'social_media_links' => '{}',
-            'email' => 'example@example.com',
+            'email' => $this->faker->email(),
             'location_id' => Location::factory()->create(),
             'birth_date' => $this->faker->dateTimeBetween(now()->subDecade(3), now()->subDecade(1)),
         ];
