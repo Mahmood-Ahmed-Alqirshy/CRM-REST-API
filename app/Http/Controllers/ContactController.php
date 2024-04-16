@@ -13,7 +13,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return ContactResource::collection(Contact::with('location')->paginate(15));
+        return ContactResource::collection(Contact::with('location')->with('interests')->paginate(15));
     }
 
     /**

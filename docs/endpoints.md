@@ -114,6 +114,7 @@ No payload requierd.
 -   location_id
 -   birth_date
 -   location
+-   interest_ids
 
 ### `GET` - /api/contacts/{id}
 
@@ -206,6 +207,8 @@ No payload requierd.
 -   datetime
 -   is_annual
 -   image
+-   interest_ids
+-   tag_ids
 
 ### `GET` - /api/deals/{id}
 

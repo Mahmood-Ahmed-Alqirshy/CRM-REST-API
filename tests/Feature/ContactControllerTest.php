@@ -29,7 +29,7 @@ it('can retrieve contacts', function () {
                         ->where('name', 'Mahmoud Ahmed')
                         ->has('location')
                         ->has('social_media_links')
-                        ->missing('interest_ids')
+                        ->has('interest_ids')
                         ->etc()
                 )
         );

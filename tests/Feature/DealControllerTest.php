@@ -28,8 +28,8 @@ it('can retrieve deals', function () {
                     15,
                     fn (AssertableJson $json) => $json->where('id', $deal->id)
                         ->where('heading', 'good pizza')
-                        ->missing('tag_ids')
-                        ->missing('interest_ids')
+                        ->has('tag_ids')
+                        ->has('interest_ids')
                         ->etc()
                 )
         );

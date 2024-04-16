@@ -13,7 +13,7 @@ class DealController extends Controller
      */
     public function index()
     {
-        return DealResource::collection(Deal::paginate(15));
+        return DealResource::collection(Deal::with('interests')->with('tags')->paginate(15));
     }
 
     /**
