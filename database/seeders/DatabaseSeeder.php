@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,5 +28,6 @@ class DatabaseSeeder extends Seeder
             Location::factory()->create($location);
         }
 
+        User::factory()->create(['username' => 'admin', 'password' => Hash::make('secret123')]);
     }
 }
