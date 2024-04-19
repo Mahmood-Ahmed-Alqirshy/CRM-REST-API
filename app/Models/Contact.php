@@ -62,7 +62,7 @@ class Contact extends Model
      */
     public static function getByDeal(Deal $deal)
     {
-        return Contact::whereHas('interests', fn ($query) => $query->whereIn('id', $deal->interests->pluck('id')->toArray()))
+        return Contact::with('interests')->whereHas('interests', fn ($query) => $query->whereIn('id', $deal->interests->pluck('id')->toArray()))
             ->get();
     }
 }
