@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Contact;
+use App\Models\Deal;
 use App\Models\Interest;
 use Illuminate\Testing\Fluent\AssertableJson;
 
@@ -55,4 +57,32 @@ it('protect Interest endpoints', function () {
 
     $this->postJson('/api/interests')
         ->assertUnauthorized();
+});
+
+it('can delete interest', function () {
+    // to make the next moduls the Model::latest()->first();
+    sleep(1);
+
+    $interest = Interest::factory()->create();
+
+    $contact = Contact::factory()->create();
+    $contact->interests()->sync([$interest->id]);
+
+    $deal = Deal::factory()->create();
+    $deal->interests()->sync([$interest->id]);
+
+    expect(Contact::latest()->first()->interests()->count())->toBe(1);
+    expect(Deal::latest()->first()->interests()->count())->toBe(1);
+
+    $this->deleteJson("/api/interests/$interest->id", [], ['Authorization' => "Bearer $this->token"])
+        ->assertOK();
+
+    expect(Interest::find($interest->id))->toBeNull();
+    expect(Contact::latest()->first()->interests()->count())->toBe(0);
+    expect(Deal::latest()->first()->interests()->count())->toBe(0);
+});
+
+it("can't delete unexisting interest", function () {
+    $this->deleteJson('/api/interests/6579839', [], ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });

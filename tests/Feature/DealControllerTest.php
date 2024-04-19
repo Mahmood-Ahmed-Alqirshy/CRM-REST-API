@@ -63,7 +63,7 @@ it('can delete deal', function () {
     $this->deleteJson("/api/deals/$deal->id", [], ['Authorization' => "Bearer $this->token"])
         ->assertOK();
 
-    expect(Deal::find($deal->id))->tobeNull();
+    expect(Deal::find($deal->id))->toBeNull();
 });
 
 it("can't delete unexisting deal", function () {

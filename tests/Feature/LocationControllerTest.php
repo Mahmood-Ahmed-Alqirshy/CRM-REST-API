@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contact;
 use App\Models\Location;
 use Illuminate\Testing\Fluent\AssertableJson;
 
@@ -55,4 +56,27 @@ it('protect Location endpoints', function () {
 
     $this->postJson('/api/locations')
         ->assertUnauthorized();
+});
+
+it('can delete location', function () {
+    // to make the next moduls the Model::latest()->first();
+    sleep(1);
+
+    $location = Location::factory()->create();
+    $contact = Contact::factory()->create([
+        'location_id' => $location,
+    ]);
+
+    expect(Contact::latest()->first()->location()->get()[0]->id)->toBe($location->id);
+
+    $this->deleteJson("/api/locations/$location->id", [], ['Authorization' => "Bearer $this->token"])
+        ->assertOK();
+
+    expect(Location::find($location->id))->toBeNull();
+    expect(Contact::latest()->first()->location_id)->toBeNull();
+});
+
+it("can't delete unexisting location", function () {
+    $this->deleteJson('/api/locations/6579839', [], ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Deal;
 use App\Models\Tag;
 use Illuminate\Testing\Fluent\AssertableJson;
 
@@ -55,4 +56,27 @@ it('protect Tag endpoints', function () {
 
     $this->postJson('/api/tags')
         ->assertUnauthorized();
+});
+
+it('can delete tag', function () {
+    // to make the next moduls the Model::latest()->first();
+    sleep(1);
+
+    $tag = Tag::factory()->create();
+
+    $deal = Deal::factory()->create();
+    $deal->tags()->sync([$tag->id]);
+
+    expect(Deal::latest()->first()->tags()->count())->toBe(1);
+
+    $this->deleteJson("/api/tags/$tag->id", [], ['Authorization' => "Bearer $this->token"])
+        ->assertOK();
+
+    expect(Tag::find($tag->id))->toBeNull();
+    expect(Deal::latest()->first()->tags()->count())->toBe(0);
+});
+
+it("can't delete unexisting tag", function () {
+    $this->deleteJson('/api/tags/6579839', [], ['Authorization' => "Bearer $this->token"])
+        ->assertNotFound();
 });

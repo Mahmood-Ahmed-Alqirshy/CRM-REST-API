@@ -24,4 +24,11 @@ class LocationController extends Controller
 
         return response()->json(['message' => 'created'], 201);
     }
+
+    public function destroy(Location $location)
+    {
+        $location->delete();
+
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
+    }
 }
