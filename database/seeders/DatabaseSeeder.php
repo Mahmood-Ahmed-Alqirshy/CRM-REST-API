@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Contact;
-use App\Models\Deal;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
