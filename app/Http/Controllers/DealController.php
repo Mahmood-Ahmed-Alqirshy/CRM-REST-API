@@ -2,22 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\APINotifications\Messenger;
 use App\Http\Requests\DealRequest;
 use App\Http\Resources\DealResource;
-use App\Jobs\SendEmailDeal;
 use App\Jobs\SendEmailDealDispatcher;
-use App\Jobs\SendMessengerDealDispatcher;
-// use App\Mail\DealOn;
-use App\Models\Contact;
 use App\Models\Deal;
-use App\Notifications\DealOn;
 use Carbon\Carbon;
-use Illuminate\Support\Benchmark;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Queue;
 
 class DealController extends Controller
 {

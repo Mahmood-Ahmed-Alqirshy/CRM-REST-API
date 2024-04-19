@@ -38,12 +38,12 @@ class DealOn extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->subject($this->deal->heading)
-        ->markdown('mail.deal.on', [
-            'heading' => $this->deal->heading,
-            'description' => $this->deal->description,
-            'image' => $this->deal->image,
-        ]);
+            ->subject($this->deal->heading)
+            ->markdown('mail.deal.on', [
+                'heading' => $this->deal->heading,
+                'description' => $this->deal->description,
+                'image' => $this->deal->image,
+            ]);
     }
 
     /**

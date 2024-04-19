@@ -1,12 +1,8 @@
 <?php
 
-use App\APINotifications\Messenger;
 use App\Jobs\SendEmailDealDispatcher;
-use App\Mail\DealOn;
-use App\Models\Contact;
 use App\Models\Deal;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
