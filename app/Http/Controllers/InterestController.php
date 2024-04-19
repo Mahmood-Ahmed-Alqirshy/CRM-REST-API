@@ -24,4 +24,11 @@ class InterestController extends Controller
 
         return response()->json(['message' => 'created'], 201);
     }
+
+    public function destroy(Interest $interest)
+    {
+        $interest->delete();
+
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
+    }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('contact_interest', function (Blueprint $table) {
             $table->foreignId('contact_id');
-            $table->foreignId('interest_id');
+            $table->foreignId('interest_id')->constrained()->onDelete('cascade');
             $table->primary(['contact_id', 'interest_id']);
         });
 

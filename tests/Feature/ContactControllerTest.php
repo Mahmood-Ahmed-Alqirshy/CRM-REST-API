@@ -62,7 +62,7 @@ it('can delete contact', function () {
     $this->deleteJson("/api/contacts/$contact->id", [], ['Authorization' => "Bearer $this->token"])
         ->assertOK();
 
-    expect(Contact::find($contact->id))->tobeNull();
+    expect(Contact::find($contact->id))->toBeNull();
 });
 
 it("can't delete unexisting contact", function () {

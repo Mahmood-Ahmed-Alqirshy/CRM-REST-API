@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('social_media_links')->default(new Expression('(JSON_ARRAY())'));
             $table->string('email')->unique();
             $table->unsignedBigInteger('location_id')->nullable();
-            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('set null');
             $table->date('birth_date')->nullable();
             $table->timestamps();
         });

@@ -18,11 +18,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/interests', [InterestController::class, 'index']);
     Route::post('/interests', [InterestController::class, 'store']);
+    Route::delete('/interests/{interest}', [InterestController::class, 'destroy']);
 
     Route::get('/tags', [TagController::class, 'index']);
     Route::post('/tags', [TagController::class, 'store']);
+    Route::delete('/tags/{tag}', [TagController::class, 'destroy']);
 
     Route::get('/locations', [LocationController::class, 'index']);
     Route::post('/locations', [LocationController::class, 'store']);
+    Route::delete('/locations/{location}', [LocationController::class, 'destroy']);
 
 });

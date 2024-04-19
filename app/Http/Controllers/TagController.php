@@ -24,4 +24,11 @@ class TagController extends Controller
 
         return response()->json(['message' => 'created'], 201);
     }
+
+    public function destroy(Tag $tag)
+    {
+        $tag->delete();
+
+        return response()->json(['massage' => 'The request has succeeded.', 200]);
+    }
 }
