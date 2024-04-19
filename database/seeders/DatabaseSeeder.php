@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Contact;
+use App\Models\Deal;
 use App\Models\Interest;
 use App\Models\Location;
 use App\Models\Tag;
@@ -30,13 +31,5 @@ class DatabaseSeeder extends Seeder
         }
 
         User::factory()->create(['username' => 'admin', 'password' => Hash::make('secret123')]);
-
-        $contact = Contact::factory()->create([
-            'name' => 'Mahmoud Ahmed',
-            'phone' => '123456789',
-            'email' => 'the.inticx@gmail.com',
-        ]);
-
-        $contact->interests()->sync(Interest::first());
     }
 }
