@@ -56,4 +56,13 @@ class Contact extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    /**
+     * Get all contacts that share interests with the deal
+     */
+    public static function getByDeal(Deal $deal)
+    {
+        return Contact::with('interests')->whereHas('interests', fn ($query) => $query->whereIn('id', $deal->interests->pluck('id')->toArray()))
+            ->get();
+    }
 }

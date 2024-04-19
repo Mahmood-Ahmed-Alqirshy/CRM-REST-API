@@ -4,10 +4,11 @@ namespace App\Notifications;
 
 use App\Models\Deal;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DealOn extends Notification
+class DealOn extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -36,11 +37,13 @@ class DealOn extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->subject($this->deal->heading)->markdown('mail.deal.on', [
-            'heading' => $this->deal->heading,
-            'description' => $this->deal->description,
-            'image' => $this->deal->image,
-        ]);
+        return (new MailMessage)
+            ->subject($this->deal->heading)
+            ->markdown('mail.deal.on', [
+                'heading' => $this->deal->heading,
+                'description' => $this->deal->description,
+                'image' => $this->deal->image,
+            ]);
     }
 
     /**

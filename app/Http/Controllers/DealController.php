@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DealRequest;
 use App\Http\Resources\DealResource;
+use App\Jobs\SendEmailDealDispatcher;
 use App\Models\Deal;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class DealController extends Controller
 {
@@ -28,6 +31,12 @@ class DealController extends Controller
         $deal = Deal::create($validated);
         $deal->interests()->sync($interests);
         $deal->tags()->sync($tags);
+
+        //send notification if datetime is in the past
+        $datetime = new Carbon($deal->datetime);
+        if ($datetime->lessThan(now()->startOfMinute()->addMinute())) {
+            SendEmailDealDispatcher::dispatch($deal);
+        }
 
         return response()->json(['massage' => 'The request has succeeded.'], 201);
     }
